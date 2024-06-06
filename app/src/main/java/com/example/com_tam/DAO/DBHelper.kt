@@ -50,7 +50,7 @@ interface UserDAO {
     fun getListUser() : List<UserModel>
 
     // lay 1 user theo username de Dang Nhap
-    @Query("SELECT * FROM User WHERE username = :username LIMIT 1")
+    @Query("SELECT * FROM User WHERE email = :username LIMIT 1")
     fun getUser(username : String) : UserModel?
 
     // them user
