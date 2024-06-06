@@ -1,7 +1,8 @@
-package com.example.com_tam
+package com.example.com_tam.ui.theme.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,10 +24,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.com_tam.R
 
 @Preview(showBackground = true)
 @Composable
-fun HoTro() {
+fun QuanLy() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -70,82 +72,70 @@ fun HoTro() {
                 thickness = 3.dp,
                 modifier = Modifier.fillMaxWidth()
             )
-            Spacer(modifier = Modifier.padding(50.dp))
-            Row(
+            Spacer(modifier = Modifier.padding(18.dp))
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(70.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .height(70.dp)
+                    .clickable {
+
+                    },
+                contentAlignment = Alignment.Center
             ) {
-                Spacer(modifier = Modifier.padding(15.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.zalo),
-                    contentDescription = null,
+                Row(
                     modifier = Modifier
-                        .width(70.dp)
                         .height(70.dp),
-                    contentScale = ContentScale.FillBounds
-                )
-                Spacer(modifier = Modifier.padding(20.dp))
-                Text(
-                    text = "0879175310",
-                    fontSize = 19.sp,
-                    color = Color.White
-                )
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Spacer(modifier = Modifier.padding(15.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.logo),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .width(70.dp)
+                            .height(58.dp),
+                        contentScale = ContentScale.FillBounds
+                    )
+                    Spacer(modifier = Modifier.padding(8.dp))
+                    Text(
+                        text = "Quản lý loại món ăn",
+                        fontSize = 21.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                }
             }
-
-            Spacer(modifier = Modifier.padding(20.dp))
-
-            Row(
+            Spacer(modifier = Modifier.padding(5.dp))
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(70.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .height(70.dp)
+                    .clickable {
+
+                    },
+                contentAlignment = Alignment.Center
             ) {
-                Spacer(modifier = Modifier.padding(15.dp))
-
-                Image(
-                    painter = painterResource(id = R.drawable.gmail),
-                    contentDescription = null,
+                Row(
                     modifier = Modifier
-                        .width(70.dp)
                         .height(70.dp),
-                    contentScale = ContentScale.FillBounds
-                )
-                Spacer(modifier = Modifier.padding(20.dp))
-                Text(
-                    text = "vuthanhnam2102@gmail.com",
-                    fontSize = 19.sp,
-                    color = Color.White
-                )
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Spacer(modifier = Modifier.padding(15.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.logo),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .width(70.dp)
+                            .height(58.dp),
+                        contentScale = ContentScale.FillBounds
+                    )
+                    Spacer(modifier = Modifier.padding(8.dp))
+                    Text(
+                        text = "Quản lý món ăn",
+                        fontSize = 21.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                }
             }
-
-            Spacer(modifier = Modifier.padding(20.dp))
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(70.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Spacer(modifier = Modifier.padding(15.dp))
-
-                Image(
-                    painter = painterResource(id = R.drawable.dienthoai),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .width(70.dp)
-                        .height(70.dp),
-                    contentScale = ContentScale.FillBounds
-                )
-                Spacer(modifier = Modifier.padding(20.dp))
-                Text(
-                    text = "0879175310",
-                    fontSize = 19.sp,
-                    color = Color.White
-                )
-            }
-
 
         }
     }
