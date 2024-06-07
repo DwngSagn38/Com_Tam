@@ -20,11 +20,11 @@ fun NavApp() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Screen.FurnitureApp.route,
+        startDestination = Screen.WelcomeScreen.route,
     ) {
-        composable(Screen.WelcomeScreen.route) { WelcomeScreen() }
+        composable(Screen.WelcomeScreen.route) { WelcomeScreen(navController) }
         composable(Screen.LoginScreen.route) { LoginScreen(navController) }
-        composable(Screen.Sign_inScreen.route) { Sign_inScreen() }
+        composable(Screen.Sign_inScreen.route) { Sign_inScreen(navController) }
         composable(Screen.HoTroScreen.route) { HoTro() }
         composable(Screen.XacNhanDHScreen.route) { XacNhanDonHang() }
         composable(Screen.ManagerScreen.route) { QuanLy() }
