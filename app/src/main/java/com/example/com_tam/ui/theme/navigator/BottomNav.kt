@@ -248,7 +248,7 @@ fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValue
     ) {
         composable(ROUTE_HOME_SCREEN.Home.name) { HomeScreen() }
         composable(ROUTE_HOME_SCREEN.XacNhanDh.name) { XacNhanDonHang() }
-        composable(ROUTE_HOME_SCREEN.Manager.name) { QuanLy() }
+        composable(ROUTE_HOME_SCREEN.Manager.name) { QuanLy(navController) }
         composable(ROUTE_HOME_SCREEN.Profile.name) { ProfileScreen() }
     }
 }

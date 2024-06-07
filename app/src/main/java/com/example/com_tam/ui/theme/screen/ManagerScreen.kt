@@ -24,15 +24,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.com_tam.R
+import com.example.com_tam.ui.theme.navigator.Screen
 
-@Preview(showBackground = true)
+
 @Composable
-fun QuanLy() {
+fun QuanLy(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF252121)),
+            .background(Color(0xFF252121))
+            ,
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -53,7 +56,8 @@ fun QuanLy() {
             ) {
                 Row(
                     modifier = Modifier
-                        .height(70.dp),
+                        .height(70.dp)
+                        .clickable { navController.navigate(Screen.QlLoaiMonAn.route) },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Spacer(modifier = Modifier.padding(15.dp))
@@ -62,7 +66,8 @@ fun QuanLy() {
                         contentDescription = null,
                         modifier = Modifier
                             .width(70.dp)
-                            .height(58.dp),
+                            .height(58.dp)
+                            ,
                         contentScale = ContentScale.FillBounds
                     )
                     Spacer(modifier = Modifier.padding(8.dp))

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.com_tam.ui.theme.component.QlLoaiMonAn
 import com.example.com_tam.ui.theme.screen.HistoryScreen
 import com.example.com_tam.ui.theme.screen.HoTro
 import com.example.com_tam.ui.theme.screen.HomeScreen
@@ -27,12 +28,13 @@ fun NavApp() {
         composable(Screen.Sign_inScreen.route) { Sign_inScreen(navController) }
         composable(Screen.HoTroScreen.route) { HoTro() }
         composable(Screen.XacNhanDHScreen.route) { XacNhanDonHang() }
-        composable(Screen.ManagerScreen.route) { QuanLy() }
+        composable(Screen.ManagerScreen.route) { QuanLy(navController) }
         composable(Screen.HomeScreen.route) { HomeScreen() }
         composable(Screen.HistoryScreen.route) { HistoryScreen() }
         composable(Screen.ProfileScreen.route) { ProfileScreen()}
         composable(Screen.StatisticScreen.route) { StatisticsScreen() }
         composable(Screen.FurnitureApp.route) { FurnitureApp(navController) }
+        composable(Screen.QlLoaiMonAn.route) { QlLoaiMonAn() }
 
 
 
