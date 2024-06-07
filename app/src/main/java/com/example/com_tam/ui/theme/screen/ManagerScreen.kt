@@ -37,36 +37,6 @@ fun QuanLy() {
         Column(
             modifier = Modifier.fillMaxSize(),
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(90.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(70.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Spacer(modifier = Modifier.padding(15.dp))
-                    Image(
-                        painter = painterResource(id = R.drawable.logo),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .width(70.dp)
-                            .height(58.dp),
-                        contentScale = ContentScale.FillBounds
-                    )
-                    Spacer(modifier = Modifier.padding(8.dp))
-                    Text(
-                        text = "Cum tứm đim",
-                        fontSize = 21.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
-                }
-            }
             Divider(
                 color = Color.Black,
                 thickness = 3.dp,
@@ -88,7 +58,7 @@ fun QuanLy() {
                 ) {
                     Spacer(modifier = Modifier.padding(15.dp))
                     Image(
-                        painter = painterResource(id = R.drawable.logo),
+                        painter = painterResource(id = R.drawable.logo2),
                         contentDescription = null,
                         modifier = Modifier
                             .width(70.dp)
@@ -120,7 +90,7 @@ fun QuanLy() {
                 ) {
                     Spacer(modifier = Modifier.padding(15.dp))
                     Image(
-                        painter = painterResource(id = R.drawable.logo),
+                        painter = painterResource(id = R.drawable.logo2),
                         contentDescription = null,
                         modifier = Modifier
                             .width(70.dp)

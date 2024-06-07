@@ -87,7 +87,10 @@ fun LoginScreen(naviController: NavController) {
 				verticalAlignment = Alignment.CenterVertically,
 				horizontalArrangement = Arrangement.Center
 			) {
-				Text(text = "Xác nhận", color = Color.White, fontSize = 18.sp)
+				Text(text = "Xác nhận", color = Color.White, fontSize = 18.sp,
+					modifier = Modifier.clickable {
+						naviController.navigate(Screen.FurnitureApp.route)
+					})
 			}
 			
 			Text(text =

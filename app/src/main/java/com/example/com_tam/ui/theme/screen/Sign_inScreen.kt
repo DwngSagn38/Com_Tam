@@ -2,6 +2,7 @@ package com.example.com_tam.ui.theme.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,11 +27,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
+import androidx.navigation.NavController
 import com.example.com_tam.R
+import com.example.com_tam.ui.theme.navigator.Screen
 
-@Preview
 @Composable
-fun Sign_inScreen() {
+fun Sign_inScreen(navController: NavController) {
 	Column(
 		modifier = Modifier
 			.fillMaxSize()
@@ -79,7 +81,10 @@ fun Sign_inScreen() {
 				verticalAlignment = Alignment.CenterVertically,
 				horizontalArrangement = Arrangement.Center
 			) {
-				Text(text = "Xác nhận", color = Color.White, fontSize = 18.sp)
+				Text(text = "Xác nhận", color = Color.White, fontSize = 18.sp,
+					modifier = Modifier.clickable {
+						navController.navigate(Screen.LoginScreen.route)
+					})
 			}
 			
 		}

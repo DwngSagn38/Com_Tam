@@ -51,7 +51,9 @@ import com.example.com_tam.ui.theme.screen.HomeScreen
 import com.example.com_tam.ui.theme.screen.ProfileScreen
 import com.example.com_tam.R
 import com.example.com_tam.ui.theme.screen.HistoryScreen
+import com.example.com_tam.ui.theme.screen.QuanLy
 import com.example.com_tam.ui.theme.screen.StatisticsScreen
+import com.example.com_tam.ui.theme.screen.XacNhanDonHang
 
 
 // Bottom menu
@@ -59,8 +61,8 @@ import com.example.com_tam.ui.theme.screen.StatisticsScreen
 
 enum class ROUTE_HOME_SCREEN {
     Home,
-    History,
-    Statistics,
+    XacNhanDh,
+    Manager,
     Profile
 }
 
@@ -73,11 +75,11 @@ fun FurnitureApp(navHostController: NavController) {
             R.drawable.ic_home
         ),
         BottomNavigationItem(
-            ROUTE_HOME_SCREEN.History.name,
+            ROUTE_HOME_SCREEN.XacNhanDh.name,
             R.drawable.ic_lich_su
         ),
         BottomNavigationItem(
-            ROUTE_HOME_SCREEN.Statistics.name,
+            ROUTE_HOME_SCREEN.Manager.name,
             R.drawable.ic_quan_ly
         ),
         BottomNavigationItem(
@@ -132,8 +134,8 @@ fun TopAppBar(navController: NavHostController, navHostController: NavController
 
     val title: Any = when (currentRoute) {
         "Home" -> homeTitle
-        "History" -> "Lịch sử"
-        "Statistics" -> "Quản lý"
+        "XacNhanDh" -> "Xác Nhận Đơn Hàng"
+        "Manager" -> "Quản lý"
         "Profile" -> "Profile"
         else -> "Cơm tấm"
     }
@@ -245,8 +247,8 @@ fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValue
         modifier = Modifier.padding(innerPadding)
     ) {
         composable(ROUTE_HOME_SCREEN.Home.name) { HomeScreen() }
-        composable(ROUTE_HOME_SCREEN.History.name) { HistoryScreen() }
-        composable(ROUTE_HOME_SCREEN.Statistics.name) { StatisticsScreen() }
+        composable(ROUTE_HOME_SCREEN.XacNhanDh.name) { XacNhanDonHang() }
+        composable(ROUTE_HOME_SCREEN.Manager.name) { QuanLy() }
         composable(ROUTE_HOME_SCREEN.Profile.name) { ProfileScreen() }
     }
 }
