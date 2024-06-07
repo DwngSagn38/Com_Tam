@@ -6,5 +6,10 @@ enum class Screen(val route : String) {
     Sign_inScreen("Sign_inScreen"),
     HoTroScreen("HoTroScreen"),
     ManagerScreen("ManagerScreen"),
-    XacNhanDHScreen("XacNhanDHScreen")
+    XacNhanDHScreen("XacNhanDHScreen"),
+    HistoryScreen("HistoryScreen"),
+    ProfileScreen("ProfileScreen"),
+    StatisticScreen("StatisticScreen"),
+    HomeScreen("HomeScreen"),
+    FurnitureApp("FurnitureApp")
 }
