@@ -15,30 +15,20 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.com_tam.R
-import com.example.com_tam.ui.theme.navigator.Screen
 
 @Composable
-fun QuanLy(navController: NavController) {
-    var isQLLMA by remember{ mutableStateOf(false) }
-    var isQLMA by remember{ mutableStateOf(false) }
-    if (isQLMA) QuanLyMonAn(navController)
-    else if (isQLLMA) QuanLyLoaiMonAn(navController)
-    else Box(
+fun QuanLyMonAn(navController: NavController) {
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF252121)),
@@ -53,12 +43,10 @@ fun QuanLy(navController: NavController) {
             )
             Spacer(modifier = Modifier.padding(18.dp))
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
                     .height(70.dp)
                     .clickable {
-                        isQLLMA = true
-                        isQLMA = false
+
                     },
                 contentAlignment = Alignment.TopStart
             ) {
@@ -78,7 +66,7 @@ fun QuanLy(navController: NavController) {
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
                     Text(
-                        text = "Quản lý loại món ăn",
+                        text = "Thêm món ăn",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White
@@ -87,12 +75,10 @@ fun QuanLy(navController: NavController) {
             }
             Spacer(modifier = Modifier.padding(5.dp))
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
                     .height(70.dp)
                     .clickable {
-                        isQLMA = true
-                        isQLLMA = false
+
                     },
                 contentAlignment = Alignment.TopStart
             ) {
@@ -112,7 +98,39 @@ fun QuanLy(navController: NavController) {
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
                     Text(
-                        text = "Quản lý món ăn",
+                        text = "Sửa món ăn",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.padding(5.dp))
+            Box(
+                modifier = Modifier.fillMaxWidth()
+                    .height(70.dp)
+                    .clickable {
+
+                    },
+                contentAlignment = Alignment.TopStart
+            ) {
+                Row(
+                    modifier = Modifier
+                        .height(70.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.logo2),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .width(70.dp)
+                            .height(58.dp),
+                        contentScale = ContentScale.FillBounds
+                    )
+                    Spacer(modifier = Modifier.padding(8.dp))
+                    Text(
+                        text = "Xóa món ăn",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White

@@ -12,6 +12,8 @@ import com.example.com_tam.ui.theme.screen.HomeScreen
 import com.example.com_tam.ui.theme.screen.LoginScreen
 import com.example.com_tam.ui.theme.screen.ProfileScreen
 import com.example.com_tam.ui.theme.screen.QuanLy
+import com.example.com_tam.ui.theme.screen.QuanLyLoaiMonAn
+import com.example.com_tam.ui.theme.screen.QuanLyMonAn
 import com.example.com_tam.ui.theme.screen.Sign_inScreen
 import com.example.com_tam.ui.theme.screen.StatisticsScreen
 import com.example.com_tam.ui.theme.screen.WelcomeScreen
@@ -29,15 +31,14 @@ fun NavApp() {
         composable(Screen.Sign_inScreen.route) { Sign_inScreen(navController) }
         composable(Screen.HoTroScreen.route) { HoTro() }
         composable(Screen.XacNhanDHScreen.route) { XacNhanDonHang() }
-        composable(Screen.ManagerScreen.route) { QuanLy() }
+        composable(Screen.ManagerScreen.route) { QuanLy(navController) }
         composable(Screen.HomeScreen.route) { HomeScreen() }
         composable(Screen.HistoryScreen.route) { HistoryScreen() }
         composable(Screen.ProfileScreen.route) { ProfileScreen(navController) }
         composable(Screen.EditProfileScreen.route) { EditProfileScreen(navController) }
         composable(Screen.StatisticScreen.route) { StatisticsScreen() }
         composable(Screen.FurnitureApp.route) { FurnitureApp(navController) }
-
-
-
+        composable(Screen.QuanLyMonAn.route) { QuanLyMonAn(navController) }
+        composable(Screen.QuanLyLoaiMonAn.route) { QuanLyLoaiMonAn(navController) }
     }
 }
