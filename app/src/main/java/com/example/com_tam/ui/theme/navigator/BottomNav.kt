@@ -108,7 +108,7 @@ fun FurnitureApp(navHostController: NavController) {
                 )
             }
         ) { innerPadding ->
-            NavigationGraph(navController = navController, innerPadding = innerPadding)
+            NavigationGraph(navController = navController, innerPadding = innerPadding, navHostController)
         }
     }
 }
@@ -240,7 +240,7 @@ data class BottomNavigationItem(
 )
 
 @Composable
-fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValues) {
+fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValues, navHostController: NavController) {
     NavHost(
         navController,
         startDestination = ROUTE_HOME_SCREEN.Home.name,
@@ -249,7 +249,7 @@ fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValue
         composable(ROUTE_HOME_SCREEN.Home.name) { HomeScreen() }
         composable(ROUTE_HOME_SCREEN.XacNhanDh.name) { XacNhanDonHang() }
         composable(ROUTE_HOME_SCREEN.Manager.name) { QuanLy() }
-        composable(ROUTE_HOME_SCREEN.Profile.name) { ProfileScreen() }
+        composable(ROUTE_HOME_SCREEN.Profile.name) { ProfileScreen(navHostController) }
     }
 }
 
