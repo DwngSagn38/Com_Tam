@@ -12,4 +12,5 @@ data class LoaiMonAnModel(
     fun getThongtinLoaiMon(): String {
         return "Loai mon an : $tenLoaiMon \n"
     }
+
 }

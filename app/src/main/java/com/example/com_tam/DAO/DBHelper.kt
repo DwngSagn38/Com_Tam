@@ -115,3 +115,4 @@ interface HoaDonDAO{
     fun addHoaDon(vararg hd : HoaDonModel)
 
 }
+
