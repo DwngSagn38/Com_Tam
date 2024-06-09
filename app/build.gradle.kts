@@ -71,6 +71,8 @@ dependencies {
 
     // RoomDB
     implementation ("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+
     kapt ("androidx.room:room-compiler:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
@@ -78,6 +80,8 @@ dependencies {
     // Load URL ảnh
     implementation("androidx.compose.runtime:runtime-livedata:1.6.0")
     implementation("io.coil-kt:coil-compose:2.6.0")
+
+    implementation("androidx.room:room-ktx:2.6.1")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")

@@ -20,7 +20,7 @@ interface LoaiMonAnDAO{
 
     // them Loai mon an
     @Insert
-    suspend fun addLoaiMon(vararg loaiMon : LoaiMonAnModel)
+    suspend fun addLoaiMon( loaiMon : LoaiMonAnModel)
 
     // xoa loai mon an
     @Delete
