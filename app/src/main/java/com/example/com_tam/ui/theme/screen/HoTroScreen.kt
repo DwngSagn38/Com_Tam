@@ -34,11 +34,7 @@ fun HoTro() {
             .fillMaxSize()
             .background(Color(0xFF252121)),
     ) {
-        Divider(
-            color = Color.Black,
-            thickness = 3.dp,
-            modifier = Modifier.fillMaxWidth()
-        )
+
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center

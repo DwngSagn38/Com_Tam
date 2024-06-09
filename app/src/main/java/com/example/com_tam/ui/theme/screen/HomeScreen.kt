@@ -44,7 +44,7 @@ fun Header() {
             .background(Color(0xFF252121))
 
     ) {
-        Divider(color = Color.Black, thickness = 5.dp)
+
         Spacer(modifier = Modifier.height(20.dp))
 
         Text("Today: 19-05-2023", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold )
