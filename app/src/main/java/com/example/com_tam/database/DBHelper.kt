@@ -43,6 +43,18 @@ abstract class DBHelper : RoomDatabase(){
             }
             return INSTANCE!!
         }
+
+        suspend fun populateDatabase(userDAO: UserDAO) {
+            // Thêm người dùng mặc định
+            val user = UserModel(
+                email = "linh@gmail.com",
+                password = "123",
+                hoTen = "Hoa Linh",
+                soDienThoai = "0352349876",
+                role = 0
+            )
+            userDAO.addUser(user)
+        }
     }
 }
 

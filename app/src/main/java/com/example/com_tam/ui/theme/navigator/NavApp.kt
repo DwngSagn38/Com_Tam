@@ -1,9 +1,12 @@
 package com.example.com_tam.ui.theme.navigator
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.com_tam.database.DBHelper
+import com.example.com_tam.repository.RepositoryUser
 import com.example.com_tam.ui.theme.screen.EditProfileScreen
 import com.example.com_tam.ui.theme.screen.HistoryScreen
 import com.example.com_tam.ui.theme.screen.HoTro
@@ -21,13 +24,22 @@ import com.example.com_tam.ui.theme.screen.XacNhanDonHang
 @Composable
 fun NavApp() {
     val navController = rememberNavController()
+
+    val dbHelper = DBHelper.getInstance(LocalContext.current)
+    val repositoryUser = RepositoryUser(dbHelper)
+    val userDao = dbHelper.userDAO()
+
     NavHost(
         navController = navController,
         startDestination = Screen.WelcomeScreen.route,
     ) {
         composable(Screen.WelcomeScreen.route) { WelcomeScreen(navController) }
-        composable(Screen.LoginScreen.route) { LoginScreen(navController) }
-        composable(Screen.Sign_inScreen.route) { Sign_inScreen(navController) }
+        composable(Screen.LoginScreen.route) {
+            LoginScreen(navController, repositoryUser)
+        }
+        composable(Screen.Sign_inScreen.route) {
+            Sign_inScreen(navController, repositoryUser)
+        }
         composable(Screen.HoTroScreen.route) { HoTro() }
         composable(Screen.XacNhanDHScreen.route) { XacNhanDonHang() }
         composable(Screen.ManagerScreen.route) { QuanLy(navController) }
