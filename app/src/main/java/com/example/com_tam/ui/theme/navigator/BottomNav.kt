@@ -51,6 +51,7 @@ import com.example.com_tam.ui.theme.screen.HomeScreen
 import com.example.com_tam.ui.theme.screen.ProfileScreen
 import com.example.com_tam.R
 import com.example.com_tam.ui.theme.screen.HistoryScreen
+import com.example.com_tam.ui.theme.screen.HoTro
 import com.example.com_tam.ui.theme.screen.QuanLy
 import com.example.com_tam.ui.theme.screen.StatisticsScreen
 import com.example.com_tam.ui.theme.screen.XacNhanDonHang
@@ -63,7 +64,7 @@ enum class ROUTE_HOME_SCREEN {
     Home,
     XacNhanDh,
     Manager,
-    Profile
+    HoTro
 }
 
 @Composable
@@ -83,7 +84,7 @@ fun FurnitureApp(navHostController: NavController) {
             R.drawable.ic_quan_ly
         ),
         BottomNavigationItem(
-            ROUTE_HOME_SCREEN.Profile.name,
+            ROUTE_HOME_SCREEN.HoTro.name,
             R.drawable.ic_ho_so
         )
     )
@@ -136,7 +137,7 @@ fun TopAppBar(navController: NavHostController, navHostController: NavController
         "Home" -> homeTitle
         "XacNhanDh" -> "Xác Nhận Đơn Hàng"
         "Manager" -> "Quản lý"
-        "Profile" -> "Profile"
+        "HoTro" -> "Hỗ Trợ"
         else -> "Cơm tấm"
     }
     androidx.compose.material3.TopAppBar(
@@ -249,7 +250,7 @@ fun NavigationGraph(navController: NavHostController, navHostController: NavCont
         composable(ROUTE_HOME_SCREEN.Home.name) { HomeScreen() }
         composable(ROUTE_HOME_SCREEN.XacNhanDh.name) { XacNhanDonHang() }
         composable(ROUTE_HOME_SCREEN.Manager.name) { QuanLy(navHostController) }
-        composable(ROUTE_HOME_SCREEN.Profile.name) { ProfileScreen() }
+        composable(ROUTE_HOME_SCREEN.HoTro.name) { HoTro() }
     }
 }
 
