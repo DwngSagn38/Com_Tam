@@ -2,6 +2,7 @@ package com.example.com_tam.ui.theme.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,45 +34,16 @@ fun HoTro() {
             .fillMaxSize()
             .background(Color(0xFF252121)),
     ) {
+        Divider(
+            color = Color.Black,
+            thickness = 3.dp,
+            modifier = Modifier.fillMaxWidth()
+        )
         Column(
             modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(90.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(70.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Spacer(modifier = Modifier.padding(15.dp))
-                    Image(
-                        painter = painterResource(id = R.drawable.logo),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .width(70.dp)
-                            .height(58.dp),
-                        contentScale = ContentScale.FillBounds
-                    )
-                    Spacer(modifier = Modifier.padding(8.dp))
-                    Text(
-                        text = "Cum tứm đim",
-                        fontSize = 21.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
-                }
-            }
-            Divider(
-                color = Color.Black,
-                thickness = 3.dp,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(modifier = Modifier.padding(50.dp))
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

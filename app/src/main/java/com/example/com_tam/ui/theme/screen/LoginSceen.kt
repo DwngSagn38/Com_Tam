@@ -151,7 +151,13 @@ fun LoginScreen(naviController: NavController) {
 					} else {
 						if (!email.trim().isEmpty() && !pass.trim().isEmpty()) {
 							Toast.makeText(context, "Login SuccessFully", Toast.LENGTH_SHORT).show()
-							naviController.navigate(Screen.FurnitureApp.route)
+							naviController.navigate(Screen.FurnitureApp.route){
+								// Xóa tất cả các trạng thái lưu màn hình trước đó
+								popUpTo(Screen.LoginScreen.route) {
+									inclusive = true
+								}
+							}
+
 						} else {
 							Toast.makeText(context, "Login Not SuccessFully", Toast.LENGTH_SHORT).show()
 						}
