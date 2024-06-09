@@ -1,5 +1,6 @@
 package com.example.com_tam.ui.theme.screen
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -44,11 +45,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
+import com.example.com_tam.DAO.UserDAO
 import com.example.com_tam.R
+import com.example.com_tam.model.UserModel
+import com.example.com_tam.repository.RepositoryUser
 import com.example.com_tam.ui.theme.navigator.Screen
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Composable
-fun Sign_inScreen(navController: NavController) {
+fun Sign_inScreen(naviController: NavController, repositoryUser: RepositoryUser) {
 	var name by remember { mutableStateOf("") }
 	var sdt by remember { mutableStateOf("") }
 	var email by remember { mutableStateOf("") }
@@ -56,6 +65,8 @@ fun Sign_inScreen(navController: NavController) {
 	var confirmPass by remember { mutableStateOf("") }
 	var visible by remember { mutableStateOf(true) }
 	var visibleCF by remember { mutableStateOf(true) }
+	var errorMessage by remember { mutableStateOf<String?>(null) }
+
 	Column(
 		modifier = Modifier
 			.fillMaxSize()
@@ -211,7 +222,10 @@ fun Sign_inScreen(navController: NavController) {
 
 			Button(
 				onClick = {
-					navController.navigate(Screen.LoginScreen.route)
+					// Gọi hàm xử lý đăng ký
+					registerUser(name, sdt, email, pass, confirmPass, naviController, repositoryUser) { error ->
+						errorMessage = error
+					}
 				},
 				colors = ButtonDefaults.buttonColors(
 					containerColor = Color(0xFFFE724C),
@@ -229,11 +243,13 @@ fun Sign_inScreen(navController: NavController) {
 					fontWeight = FontWeight(600)
 				)
 			}
+
+			errorMessage?.let {
+				Text(text = it, color = Color.Red, fontSize = 14.sp)
+			}
 		}
-		
-		
 	}
-	
+
 }
 
 @Composable
@@ -254,7 +270,44 @@ fun TextInput(
 				.clip(shape = RoundedCornerShape(10.dp))
 				.background(Color("#D9D9D9".toColorInt()))
 				.height(50.dp)
-		
+
 		)
 	}
+}
+
+fun registerUser(name: String, sdt: String, email: String, pass: String, confirmPass: String, naviController: NavController, repositoryUser: RepositoryUser, onError: (String?) -> Unit) {
+	// Kiểm tra các trường dữ liệu
+	if (name.isEmpty() || sdt.isEmpty() || email.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
+		onError("Vui lòng điền đầy đủ thông tin.")
+		return
+	}
+
+	// Kiểm tra xác nhận mật khẩu
+	if (pass != confirmPass) {
+		onError("Mật khẩu và xác nhận mật khẩu không khớp.")
+		return
+	}
+
+	// Thực hiện đăng ký người dùng
+	// Gọi phương thức từ repositoryUser để thêm người dùng mới vào cơ sở dữ liệu
+	val newUser = UserModel(
+		email = email,
+		password = pass,
+		hoTen = name,
+		soDienThoai = sdt,
+		role = 1 // Role 1 là giá trị mặc định cho người dùng mới
+	)
+
+	CoroutineScope(Dispatchers.IO).launch {
+		try {
+			repositoryUser.addUser(newUser)
+			withContext(Dispatchers.Main) {
+				// Chuyển hướng đến màn hình đăng nhập
+				naviController.navigate(Screen.LoginScreen.route)
+			}
+		} catch (e: Exception) {
+			onError("Đã xảy ra lỗi khi đăng ký người dùng.")
+		}
+	}
+
 }
