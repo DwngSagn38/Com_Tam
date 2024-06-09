@@ -36,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -59,6 +60,7 @@ import kotlinx.coroutines.withContext
 
 @Composable
 fun Sign_inScreen(naviController: NavController, repositoryUser: RepositoryUser) {
+	val context = LocalContext.current
 	var name by remember { mutableStateOf("") }
 	var sdt by remember { mutableStateOf("") }
 	var email by remember { mutableStateOf("") }
@@ -228,9 +230,11 @@ fun Sign_inScreen(naviController: NavController, repositoryUser: RepositoryUser)
 			Button(
 				onClick = {
 					// Gọi hàm xử lý đăng ký
-					registerUser(name, sdt, email, pass, confirmPass, naviController, repositoryUser) { error ->
+					registerUser(name, sdt, email, pass, confirmPass, naviController, repositoryUser, onError =  { error ->
 						errorMessage = error
-					}
+					}, onConfirm = {
+						Toast.makeText(context,"Đăng ký tài khoản thành công!", Toast.LENGTH_SHORT).show()
+					})
 				},
 				colors = ButtonDefaults.buttonColors(
 					containerColor = Color(0xFFFE724C),
@@ -277,7 +281,15 @@ fun TextInput(
 	}
 }
 
-fun registerUser(name: String, sdt: String, email: String, pass: String, confirmPass: String, naviController: NavController, repositoryUser: RepositoryUser, onError: (String?) -> Unit) {
+fun registerUser(name: String,
+				 sdt: String,
+				 email: String,
+				 pass: String,
+				 confirmPass: String,
+				 naviController: NavController,
+				 repositoryUser: RepositoryUser,
+				 onError: (String?) -> Unit,
+				 onConfirm : () -> Unit) {
 	// Kiểm tra các trường dữ liệu
 	if (name.isEmpty() || sdt.isEmpty() || email.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
 		onError("Vui lòng điền đầy đủ thông tin. ")
@@ -306,6 +318,7 @@ fun registerUser(name: String, sdt: String, email: String, pass: String, confirm
 			withContext(Dispatchers.Main) {
 				// Chuyển hướng đến màn hình đăng nhập
 				naviController.navigate(Screen.LoginScreen.route)
+				onConfirm()
 			}
 		} catch (e: Exception) {
 			onError("Đã xảy ra lỗi khi đăng ký người dùng.")

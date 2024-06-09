@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,6 +47,7 @@ import kotlinx.coroutines.withContext
 
 @Composable
 fun LoginScreen(naviController: NavController, repositoryUser: RepositoryUser) {
+	val context = LocalContext.current
 	var email by remember { mutableStateOf("") }
 	var password by remember { mutableStateOf("") }
 	var errorMessage by remember { mutableStateOf<String?>(null) }
@@ -108,9 +110,13 @@ fun LoginScreen(naviController: NavController, repositoryUser: RepositoryUser) {
 			) {
 				Text(text = "Xác nhận", color = Color.White, fontSize = 18.sp,
 					modifier = Modifier.clickable {
-						loginUser(email, password, repositoryUser, naviController) { error ->
+						loginUser(email, password, repositoryUser, naviController,
+							onError = { error ->
 							errorMessage = error
-						}
+						},
+							onConfirm = {
+								Toast.makeText(context,"Đăng nhập thành công",Toast.LENGTH_SHORT).show()
+							})
 					})
 			}
 
@@ -160,7 +166,12 @@ fun InputField(
 	}
 }
 
-fun loginUser(email: String, password: String, repositoryUser: RepositoryUser, naviController: NavController, onError: (String?) -> Unit) {
+fun loginUser(email: String,
+			  password: String,
+			  repositoryUser: RepositoryUser,
+			  naviController: NavController,
+			  onError: (String?) -> Unit,
+			  onConfirm : () -> Unit) {
 	CoroutineScope(Dispatchers.IO).launch {
 		val user = repositoryUser.getUserByEmail(email)
 
@@ -175,6 +186,7 @@ fun loginUser(email: String, password: String, repositoryUser: RepositoryUser, n
 		} else {
 			withContext(Dispatchers.Main) {
 				naviController.navigate(Screen.FurnitureApp.route)
+				onConfirm()
 			}
 		}
 
