@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.com_tam.database.DBHelper
+import com.example.com_tam.repository.RepositoryUser
 import com.example.com_tam.ui.theme.screen.EditProfileScreen
 import com.example.com_tam.ui.theme.screen.HistoryScreen
 import com.example.com_tam.ui.theme.screen.HoTro
@@ -24,25 +25,33 @@ import com.example.com_tam.ui.theme.screen.XacNhanDonHang
 @Composable
 fun NavApp() {
     val context = LocalContext.current
-    val db = DBHelper.getInstance(context)
     val navController = rememberNavController()
+
+    val dbHelper = DBHelper.getInstance(context)
+    val repositoryUser = RepositoryUser(dbHelper)
+    val userDao = dbHelper.userDAO()
+
     NavHost(
         navController = navController,
-        startDestination = Screen.AddMonAn.route,
+        startDestination = Screen.WelcomeScreen.route,
     ) {
         composable(Screen.WelcomeScreen.route) { WelcomeScreen(navController) }
-        composable(Screen.LoginScreen.route) { LoginScreen(navController) }
-        composable(Screen.Sign_inScreen.route) { Sign_inScreen(navController) }
+        composable(Screen.LoginScreen.route) {
+            LoginScreen(navController, repositoryUser)
+        }
+        composable(Screen.Sign_inScreen.route) {
+            Sign_inScreen(navController, repositoryUser)
+        }
         composable(Screen.HoTroScreen.route) { HoTro() }
         composable(Screen.XacNhanDHScreen.route) { XacNhanDonHang() }
-        composable(Screen.ManagerScreen.route) { QuanLy(navController,db) }
+        composable(Screen.ManagerScreen.route) { QuanLy(navController,dbHelper) }
         composable(Screen.HomeScreen.route) { HomeScreen() }
         composable(Screen.HistoryScreen.route) { HistoryScreen() }
         composable(Screen.ProfileScreen.route) { ProfileScreen(navController) }
         composable(Screen.EditProfileScreen.route) { EditProfileScreen(navController) }
         composable(Screen.StatisticScreen.route) { StatisticsScreen() }
-        composable(Screen.FurnitureApp.route) { FurnitureApp(navController,db) }
-        composable(Screen.QuanLyMonAn.route) { QuanLyMonAn(navController, db) }
+        composable(Screen.FurnitureApp.route) { FurnitureApp(navController,dbHelper) }
+        composable(Screen.QuanLyMonAn.route) { QuanLyMonAn(navController, dbHelper) }
         composable(Screen.QuanLyLoaiMonAn.route) { QuanLyLoaiMonAn(navController) }
         composable(Screen.AddMonAn.route) { AddMonAn(navController) }
     }

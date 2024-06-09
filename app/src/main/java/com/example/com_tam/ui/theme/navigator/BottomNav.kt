@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -65,31 +66,31 @@ import com.example.com_tam.ui.theme.screen.XacNhanDonHang
 // Bottom menu
 
 
-enum class ROUTE_HOME_SCREEN {
-    Home,
-    XacNhanDh,
-    Manager,
-    HoTro
-}
+//enum class ROUTE_HOME_SCREEN {
+//    Home,
+//    History,
+//    Manager,
+//    HoTro
+//}
 
 @Composable
 fun FurnitureApp(navHostController: NavController, db : DBHelper) {
     val navController = rememberNavController()
     val items = listOf(
         BottomNavigationItem(
-            ROUTE_HOME_SCREEN.Home.name,
+            "Trang chủ",
             R.drawable.ic_home
         ),
         BottomNavigationItem(
-            ROUTE_HOME_SCREEN.XacNhanDh.name,
+            "Lịch sử",
             R.drawable.ic_lich_su
         ),
         BottomNavigationItem(
-            ROUTE_HOME_SCREEN.Manager.name,
+            "Quản lý",
             R.drawable.ic_quan_ly
         ),
         BottomNavigationItem(
-            ROUTE_HOME_SCREEN.HoTro.name,
+            "Hỗ trợ",
             R.drawable.ic_ho_so
         )
     )
@@ -107,7 +108,13 @@ fun FurnitureApp(navHostController: NavController, db : DBHelper) {
     ) {
         Scaffold(
             topBar = {
-                TopAppBar(navController = navController, navHostController = navHostController)
+                Column {
+                    TopAppBar(navController = navController, navHostController = navHostController)
+                    Divider(
+                        color = Color.Black, thickness = 4.dp
+                    )
+                }
+
             },
             bottomBar = {
                 BottomNavigationBar(
@@ -120,7 +127,12 @@ fun FurnitureApp(navHostController: NavController, db : DBHelper) {
                 )
             }
         ) { innerPadding ->
-            NavigationGraph(navController = navController, innerPadding = innerPadding, navHostController, db)
+            NavigationGraph(
+                navController = navController,
+                innerPadding = innerPadding,
+                navHostController,
+                db
+            )
         }
     }
 }
@@ -145,10 +157,10 @@ fun TopAppBar(navController: NavHostController, navHostController: NavController
     }
 
     val title: Any = when (currentRoute) {
-        "Home" -> homeTitle
-        "XacNhanDh" -> "Xác Nhận Đơn Hàng"
-        "Manager" -> "Quản lý"
-        "HoTro" -> "Hỗ Trợ"
+        "Trang chủ" -> homeTitle
+        "Lịch sử" -> "Lịch sử"
+        "Quản lý" -> "Quản lý"
+        "Hỗ trợ" -> "Hỗ Trợ"
         else -> "Cơm tấm"
     }
     androidx.compose.material3.TopAppBar(
@@ -180,8 +192,7 @@ fun TopAppBar(navController: NavHostController, navHostController: NavController
                         modifier = Modifier.size(25.dp)
                     )
                 }
-            }else {
-
+            } else {
                 Icon(
                     painter = painterResource(id = R.drawable.notification),
                     contentDescription = null,
@@ -195,9 +206,11 @@ fun TopAppBar(navController: NavHostController, navHostController: NavController
             Image(
                 painter = painterResource(id = R.drawable.logo2),
                 contentDescription = null,
-                modifier = Modifier.size(50.dp).clickable {
-                    navHostController.navigate(Screen.ProfileScreen.route)
-                }
+                modifier = Modifier
+                    .size(50.dp)
+                    .clickable {
+                        navHostController.navigate(Screen.ProfileScreen.route)
+                    }
             )
         },
         colors = TopAppBarDefaults.topAppBarColors(Color(0xFF252121)),
@@ -265,12 +278,12 @@ data class BottomNavigationItem(
 fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValues, navHostController: NavController, db : DBHelper) {
     NavHost(
         navController,
-        startDestination = ROUTE_HOME_SCREEN.Home.name,
+        startDestination = "Trang chủ",
         modifier = Modifier.padding(innerPadding)
     ) {
-        composable(ROUTE_HOME_SCREEN.Home.name) { HomeScreen() }
-        composable(ROUTE_HOME_SCREEN.XacNhanDh.name) { XacNhanDonHang() }
-        composable(ROUTE_HOME_SCREEN.Manager.name) { QuanLy(navHostController,db) }
-        composable(ROUTE_HOME_SCREEN.HoTro.name) { HoTro() }
+        composable("Trang chủ") { HomeScreen() }
+        composable("Lịch sử") { HistoryScreen() }
+        composable("Quản lý") { QuanLy(navHostController, db) }
+        composable("Hỗ trợ") { HoTro() }
     }
 }

@@ -47,11 +47,7 @@ fun QuanLy(navController: NavController, db : DBHelper) {
         Column(
             modifier = Modifier.fillMaxSize(),
         ) {
-            Divider(
-                color = Color.Black,
-                thickness = 3.dp,
-                modifier = Modifier.fillMaxWidth()
-            )
+
             Spacer(modifier = Modifier.padding(18.dp))
             Box(
                 modifier = Modifier
