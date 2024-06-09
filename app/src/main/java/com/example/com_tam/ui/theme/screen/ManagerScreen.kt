@@ -23,19 +23,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.com_tam.R
+import com.example.com_tam.database.DBHelper
+import com.example.com_tam.repository.RepositoryLoaiMon
 import com.example.com_tam.ui.theme.screen.LoaiMonAn.QuanLyLoaiMonAn
 import com.example.com_tam.ui.theme.screen.MonAn.QuanLyMonAn
+import com.example.com_tam.viewmodel.LoaiMonAnViewModel
 
 @Composable
 fun QuanLy(navController: NavController) {
     var isQLLMA by remember{ mutableStateOf(false) }
     var isQLMA by remember{ mutableStateOf(false) }
+
     if (isQLMA) QuanLyMonAn(navController)
     else if (isQLLMA) QuanLyLoaiMonAn(navController)
     else Box(
