@@ -56,7 +56,7 @@ fun EditProfileScreen(navController: NavController){
 				modifier = Modifier
 					.padding(0.dp, 50.dp, 0.dp, 0.dp)
 					.size(18.dp)
-					.clickable { navController.navigate(route = Screen.ProfileScreen.route)},
+					.clickable { navController.popBackStack()},
 				tint = Color.White,)
 			Text(
 				text = "Sửa hồ sơ",
