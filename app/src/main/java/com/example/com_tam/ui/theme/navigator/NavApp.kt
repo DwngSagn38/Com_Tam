@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.com_tam.database.DBHelper
+import com.example.com_tam.repository.RepositoryLoaiMon
 import com.example.com_tam.repository.RepositoryUser
 import com.example.com_tam.ui.theme.screen.EditProfileScreen
 import com.example.com_tam.ui.theme.screen.HistoryScreen
