@@ -280,7 +280,7 @@ fun TextInput(
 fun registerUser(name: String, sdt: String, email: String, pass: String, confirmPass: String, naviController: NavController, repositoryUser: RepositoryUser, onError: (String?) -> Unit) {
 	// Kiểm tra các trường dữ liệu
 	if (name.isEmpty() || sdt.isEmpty() || email.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
-		onError("Vui lòng điền đầy đủ thông tin.")
+		onError("Vui lòng điền đầy đủ thông tin. ")
 		return
 	}
 
