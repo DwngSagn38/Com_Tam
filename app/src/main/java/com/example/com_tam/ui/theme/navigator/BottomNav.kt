@@ -2,6 +2,7 @@ package com.example.com_tam.ui.theme.navigator
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -51,6 +52,7 @@ import com.example.com_tam.ui.theme.screen.HomeScreen
 import com.example.com_tam.ui.theme.screen.ProfileScreen
 import com.example.com_tam.R
 import com.example.com_tam.ui.theme.screen.HistoryScreen
+import com.example.com_tam.ui.theme.screen.HoTro
 import com.example.com_tam.ui.theme.screen.QuanLy
 import com.example.com_tam.ui.theme.screen.StatisticsScreen
 import com.example.com_tam.ui.theme.screen.XacNhanDonHang
@@ -63,7 +65,7 @@ enum class ROUTE_HOME_SCREEN {
     Home,
     XacNhanDh,
     Manager,
-    Profile
+    HoTro
 }
 
 @Composable
@@ -83,18 +85,11 @@ fun FurnitureApp(navHostController: NavController) {
             R.drawable.ic_quan_ly
         ),
         BottomNavigationItem(
-            ROUTE_HOME_SCREEN.Profile.name,
+            ROUTE_HOME_SCREEN.HoTro.name,
             R.drawable.ic_ho_so
         )
     )
     var selectedItemIndex by rememberSaveable { mutableStateOf(0) }
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
-
-    currentRoute?.let { route ->
-        selectedItemIndex = items.indexOfFirst { it.title == route }
-    }
-
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -143,7 +138,7 @@ fun TopAppBar(navController: NavHostController, navHostController: NavController
         "Home" -> homeTitle
         "XacNhanDh" -> "Xác Nhận Đơn Hàng"
         "Manager" -> "Quản lý"
-        "Profile" -> "Profile"
+        "HoTro" -> "Hỗ Trợ"
         else -> "Cơm tấm"
     }
     androidx.compose.material3.TopAppBar(
@@ -168,7 +163,7 @@ fun TopAppBar(navController: NavHostController, navHostController: NavController
         },
         actions = {
             if (currentRoute == "Home") {
-                IconButton(onClick = { navHostController.navigate("cart") }) {
+                IconButton(onClick = {}) {
                     Image(
                         painter = painterResource(id = R.drawable.notification),
                         contentDescription = null,
@@ -190,7 +185,9 @@ fun TopAppBar(navController: NavHostController, navHostController: NavController
             Image(
                 painter = painterResource(id = R.drawable.logo2),
                 contentDescription = null,
-                modifier = Modifier.size(50.dp)
+                modifier = Modifier.size(50.dp).clickable {
+                    navHostController.navigate(Screen.ProfileScreen.route)
+                }
             )
         },
         colors = TopAppBarDefaults.topAppBarColors(Color(0xFF252121)),
@@ -256,7 +253,7 @@ fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValue
         composable(ROUTE_HOME_SCREEN.Home.name) { HomeScreen() }
         composable(ROUTE_HOME_SCREEN.XacNhanDh.name) { XacNhanDonHang() }
         composable(ROUTE_HOME_SCREEN.Manager.name) { QuanLy(navHostController) }
-        composable(ROUTE_HOME_SCREEN.Profile.name) { ProfileScreen(navHostController) }
+        composable(ROUTE_HOME_SCREEN.HoTro.name) { HoTro() }
     }
 }
 
