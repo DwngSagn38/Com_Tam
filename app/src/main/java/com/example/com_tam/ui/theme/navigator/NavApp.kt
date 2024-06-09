@@ -1,9 +1,11 @@
 package com.example.com_tam.ui.theme.navigator
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.com_tam.ui.theme.screen.EditProfileScreen
 import com.example.com_tam.ui.theme.screen.HistoryScreen
 import com.example.com_tam.ui.theme.screen.HoTro
 import com.example.com_tam.ui.theme.screen.HomeScreen
@@ -32,7 +34,8 @@ fun NavApp() {
         composable(Screen.ManagerScreen.route) { QuanLy(navController) }
         composable(Screen.HomeScreen.route) { HomeScreen() }
         composable(Screen.HistoryScreen.route) { HistoryScreen() }
-        composable(Screen.ProfileScreen.route) { ProfileScreen()}
+        composable(Screen.ProfileScreen.route) { ProfileScreen(navController) }
+        composable(Screen.EditProfileScreen.route) { EditProfileScreen(navController) }
         composable(Screen.StatisticScreen.route) { StatisticsScreen() }
         composable(Screen.FurnitureApp.route) { FurnitureApp(navController) }
         composable(Screen.QuanLyMonAn.route) { QuanLyMonAn(navController) }

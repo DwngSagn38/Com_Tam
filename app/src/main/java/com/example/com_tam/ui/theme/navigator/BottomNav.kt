@@ -51,7 +51,6 @@ import com.example.com_tam.ui.theme.screen.HomeScreen
 import com.example.com_tam.ui.theme.screen.ProfileScreen
 import com.example.com_tam.R
 import com.example.com_tam.ui.theme.screen.HistoryScreen
-import com.example.com_tam.ui.theme.screen.HoTro
 import com.example.com_tam.ui.theme.screen.QuanLy
 import com.example.com_tam.ui.theme.screen.StatisticsScreen
 import com.example.com_tam.ui.theme.screen.XacNhanDonHang
@@ -64,7 +63,7 @@ enum class ROUTE_HOME_SCREEN {
     Home,
     XacNhanDh,
     Manager,
-    HoTro
+    Profile
 }
 
 @Composable
@@ -84,7 +83,7 @@ fun FurnitureApp(navHostController: NavController) {
             R.drawable.ic_quan_ly
         ),
         BottomNavigationItem(
-            ROUTE_HOME_SCREEN.HoTro.name,
+            ROUTE_HOME_SCREEN.Profile.name,
             R.drawable.ic_ho_so
         )
     )
@@ -109,7 +108,7 @@ fun FurnitureApp(navHostController: NavController) {
                 )
             }
         ) { innerPadding ->
-            NavigationGraph(navController = navController, navHostController = navHostController, innerPadding = innerPadding)
+            NavigationGraph(navController = navController, innerPadding = innerPadding, navHostController)
         }
     }
 }
@@ -137,7 +136,7 @@ fun TopAppBar(navController: NavHostController, navHostController: NavController
         "Home" -> homeTitle
         "XacNhanDh" -> "Xác Nhận Đơn Hàng"
         "Manager" -> "Quản lý"
-        "HoTro" -> "Hỗ Trợ"
+        "Profile" -> "Profile"
         else -> "Cơm tấm"
     }
     androidx.compose.material3.TopAppBar(
@@ -241,7 +240,7 @@ data class BottomNavigationItem(
 )
 
 @Composable
-fun NavigationGraph(navController: NavHostController, navHostController: NavController , innerPadding: PaddingValues) {
+fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValues, navHostController: NavController) {
     NavHost(
         navController,
         startDestination = ROUTE_HOME_SCREEN.Home.name,
@@ -249,8 +248,8 @@ fun NavigationGraph(navController: NavHostController, navHostController: NavCont
     ) {
         composable(ROUTE_HOME_SCREEN.Home.name) { HomeScreen() }
         composable(ROUTE_HOME_SCREEN.XacNhanDh.name) { XacNhanDonHang() }
-        composable(ROUTE_HOME_SCREEN.Manager.name) { QuanLy(navHostController) }
-        composable(ROUTE_HOME_SCREEN.HoTro.name) { HoTro() }
+        composable(ROUTE_HOME_SCREEN.Manager.name) { QuanLy() }
+        composable(ROUTE_HOME_SCREEN.Profile.name) { ProfileScreen(navHostController) }
     }
 }
 
