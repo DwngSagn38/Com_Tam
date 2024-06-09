@@ -1,4 +1,4 @@
-package com.example.com_tam.ui.theme.screen
+package com.example.com_tam.ui.theme.screen.LoaiMonAn
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,7 +27,7 @@ import androidx.navigation.NavController
 import com.example.com_tam.R
 
 @Composable
-fun QuanLyMonAn(navController: NavController) {
+fun QuanLyLoaiMonAn(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -66,7 +66,7 @@ fun QuanLyMonAn(navController: NavController) {
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
                     Text(
-                        text = "Thêm món ăn",
+                        text = "Thêm loai món ăn",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White
@@ -98,7 +98,7 @@ fun QuanLyMonAn(navController: NavController) {
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
                     Text(
-                        text = "Sửa món ăn",
+                        text = "Sửa loai món ăn",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White
@@ -130,14 +130,13 @@ fun QuanLyMonAn(navController: NavController) {
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
                     Text(
-                        text = "Xóa món ăn",
+                        text = "Xóa loai món ăn",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White
                     )
                 }
             }
-
         }
     }
 }

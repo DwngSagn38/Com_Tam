@@ -25,12 +25,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.com_tam.R
-import com.example.com_tam.ui.theme.navigator.Screen
+import com.example.com_tam.ui.theme.screen.LoaiMonAn.QuanLyLoaiMonAn
+import com.example.com_tam.ui.theme.screen.MonAn.QuanLyMonAn
 
 @Composable
 fun QuanLy(navController: NavController) {

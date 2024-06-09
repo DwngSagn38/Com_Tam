@@ -3,13 +3,16 @@ package com.example.com_tam.ui.theme.navigator
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -207,37 +210,45 @@ fun BottomNavigationBar(
     selectedItemIndex: Int,
     onItemSelected: (Int) -> Unit
 ) {
-    NavigationBar(
-        containerColor = Color(0xFF312C2C)
-    ) {
-        items.forEachIndexed { index, item ->
-            NavigationBarItem(
-                selected = selectedItemIndex == index,
-                onClick = { onItemSelected(index) },
-                icon = {
-                    Image(
-                        painter = painterResource(id = item.selectIcon),
-                        contentDescription = item.title,
-                        modifier = Modifier.size(24.dp),
-                        colorFilter = if (selectedItemIndex == index) ColorFilter.tint(Color.Yellow) else ColorFilter.tint(
-                            Color.White
+    Box {
+        Divider(
+            color = Color.Black,
+            thickness = 4.dp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(4.dp)
+        )
+        NavigationBar(
+            containerColor = Color(0xFF312C2C),
+            modifier = Modifier.padding(top = 4.dp)
+        ) {
+            items.forEachIndexed { index, item ->
+                NavigationBarItem(
+                    selected = selectedItemIndex == index,
+                    onClick = { onItemSelected(index) },
+                    icon = {
+                        Image(
+                            painter = painterResource(id = item.selectIcon),
+                            contentDescription = item.title,
+                            modifier = Modifier.size(24.dp),
+                            colorFilter = if (selectedItemIndex == index) ColorFilter.tint(Color.Yellow) else ColorFilter.tint(
+                                Color.White
+                            )
                         )
-                    )
 
-                },
-                label = {
-                    Text(
-                        text = item.title,
-                        color = if (selectedItemIndex == index) Color.Yellow else Color.White
+                    },
+                    label = {
+                        Text(
+                            text = item.title,
+                            color = if (selectedItemIndex == index) Color.Yellow else Color.White
+                        )
+                    },
+                    alwaysShowLabel = false,
+                    colors = NavigationBarItemDefaults.colors(
+                        indicatorColor = Color(0xFF312C2C)
                     )
-                },
-                alwaysShowLabel = false,
-                colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = Color(0xFF312C2C) // Không có màu con nhộng
                 )
-
-
-            )
+            }
         }
     }
 }
@@ -262,6 +273,3 @@ fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValue
         composable(ROUTE_HOME_SCREEN.HoTro.name) { HoTro() }
     }
 }
-
-
-

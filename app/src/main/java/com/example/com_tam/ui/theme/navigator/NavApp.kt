@@ -1,7 +1,6 @@
 package com.example.com_tam.ui.theme.navigator
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,8 +11,8 @@ import com.example.com_tam.ui.theme.screen.HomeScreen
 import com.example.com_tam.ui.theme.screen.LoginScreen
 import com.example.com_tam.ui.theme.screen.ProfileScreen
 import com.example.com_tam.ui.theme.screen.QuanLy
-import com.example.com_tam.ui.theme.screen.QuanLyLoaiMonAn
-import com.example.com_tam.ui.theme.screen.QuanLyMonAn
+import com.example.com_tam.ui.theme.screen.LoaiMonAn.QuanLyLoaiMonAn
+import com.example.com_tam.ui.theme.screen.MonAn.QuanLyMonAn
 import com.example.com_tam.ui.theme.screen.Sign_inScreen
 import com.example.com_tam.ui.theme.screen.StatisticsScreen
 import com.example.com_tam.ui.theme.screen.WelcomeScreen
