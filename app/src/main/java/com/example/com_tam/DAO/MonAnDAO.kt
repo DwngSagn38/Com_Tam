@@ -20,13 +20,13 @@ interface MonAnDAO{
 
     // them mon an
     @Insert
-    fun addMon(vararg mon : MonAnModel)
+    suspend fun addMon(vararg mon : MonAnModel)
 
     // xoa mon an
     @Delete
-    fun deleteMon(mon: MonAnModel)
+    suspend fun deleteMon(mon: MonAnModel)
 
     // sửa mon an
     @Update
-    fun updateMon(mon: MonAnModel)
+    suspend fun updateMon(mon: MonAnModel)
 }

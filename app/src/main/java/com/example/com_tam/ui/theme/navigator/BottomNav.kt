@@ -54,6 +54,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.com_tam.ui.theme.screen.HomeScreen
 import com.example.com_tam.ui.theme.screen.ProfileScreen
 import com.example.com_tam.R
+import com.example.com_tam.database.DBHelper
 import com.example.com_tam.ui.theme.screen.HistoryScreen
 import com.example.com_tam.ui.theme.screen.HoTro
 import com.example.com_tam.ui.theme.screen.QuanLy
@@ -72,7 +73,7 @@ enum class ROUTE_HOME_SCREEN {
 }
 
 @Composable
-fun FurnitureApp(navHostController: NavController) {
+fun FurnitureApp(navHostController: NavController, db : DBHelper) {
     val navController = rememberNavController()
     val items = listOf(
         BottomNavigationItem(
@@ -119,7 +120,7 @@ fun FurnitureApp(navHostController: NavController) {
                 )
             }
         ) { innerPadding ->
-            NavigationGraph(navController = navController, innerPadding = innerPadding, navHostController)
+            NavigationGraph(navController = navController, innerPadding = innerPadding, navHostController, db)
         }
     }
 }
@@ -261,7 +262,7 @@ data class BottomNavigationItem(
 )
 
 @Composable
-fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValues, navHostController: NavController) {
+fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValues, navHostController: NavController, db : DBHelper) {
     NavHost(
         navController,
         startDestination = ROUTE_HOME_SCREEN.Home.name,
@@ -269,7 +270,7 @@ fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValue
     ) {
         composable(ROUTE_HOME_SCREEN.Home.name) { HomeScreen() }
         composable(ROUTE_HOME_SCREEN.XacNhanDh.name) { XacNhanDonHang() }
-        composable(ROUTE_HOME_SCREEN.Manager.name) { QuanLy(navHostController) }
+        composable(ROUTE_HOME_SCREEN.Manager.name) { QuanLy(navHostController,db) }
         composable(ROUTE_HOME_SCREEN.HoTro.name) { HoTro() }
     }
 }

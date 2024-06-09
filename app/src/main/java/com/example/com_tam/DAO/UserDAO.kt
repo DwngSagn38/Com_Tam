@@ -18,5 +18,5 @@ interface UserDAO {
 
     // them user
     @Insert
-    fun addUser(vararg user : UserModel)
+    suspend fun addUser(vararg user : UserModel)
 }

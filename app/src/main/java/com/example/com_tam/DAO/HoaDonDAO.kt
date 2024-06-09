@@ -4,16 +4,17 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.com_tam.model.HoaDonModel
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
 interface HoaDonDAO{
     // get list danh sach Hoa Don
     @Query("SELECT * FROM HoaDon")
-    fun getListHoaDon() : List<HoaDonModel>
+    fun getListHoaDon(): Flow<List<HoaDonModel>>
 
     // them hoa don
     @Insert
-    fun addHoaDon(vararg hd : HoaDonModel)
+    suspend fun addHoaDon(vararg hd : HoaDonModel)
 
 }

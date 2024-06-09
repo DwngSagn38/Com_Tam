@@ -29,14 +29,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.com_tam.R
+import com.example.com_tam.database.DBHelper
 import com.example.com_tam.ui.theme.screen.LoaiMonAn.QuanLyLoaiMonAn
 import com.example.com_tam.ui.theme.screen.MonAn.QuanLyMonAn
 
 @Composable
-fun QuanLy(navController: NavController) {
+fun QuanLy(navController: NavController, db : DBHelper) {
     var isQLLMA by remember{ mutableStateOf(false) }
     var isQLMA by remember{ mutableStateOf(false) }
-    if (isQLMA) QuanLyMonAn(navController)
+    if (isQLMA) QuanLyMonAn(navController,db)
     else if (isQLLMA) QuanLyLoaiMonAn(navController)
     else Box(
         modifier = Modifier

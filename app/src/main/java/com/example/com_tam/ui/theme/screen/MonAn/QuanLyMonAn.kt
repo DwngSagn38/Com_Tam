@@ -19,15 +19,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.com_tam.R
+import com.example.com_tam.database.DBHelper
+import com.example.com_tam.repository.RepositoryMonAn
+import com.example.com_tam.viewmodel.MonAnViewModel
 
 @Composable
-fun QuanLyMonAn(navController: NavController) {
+fun QuanLyMonAn(navController: NavController, db : DBHelper) {
+
+    val repository = RepositoryMonAn(db)
+    val viewModel = MonAnViewModel(repository)
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -141,3 +149,4 @@ fun QuanLyMonAn(navController: NavController) {
         }
     }
 }
+

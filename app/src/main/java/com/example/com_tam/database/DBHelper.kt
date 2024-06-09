@@ -20,7 +20,7 @@ import com.example.com_tam.model.UserModel
 
 @Database(
     entities = [UserModel::class, LoaiMonAnModel::class, MonAnModel::class, HoaDonModel::class],
-    version = 1)
+    version = 2)
 abstract class DBHelper : RoomDatabase(){
     abstract fun userDAO() : UserDAO
     abstract fun loaimonDAO() : LoaiMonAnDAO
