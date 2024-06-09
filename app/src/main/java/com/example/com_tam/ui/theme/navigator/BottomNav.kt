@@ -90,6 +90,12 @@ fun FurnitureApp(navHostController: NavController) {
         )
     )
     var selectedItemIndex by rememberSaveable { mutableStateOf(0) }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
+    currentRoute?.let { route ->
+        selectedItemIndex = items.indexOfFirst { it.title == route }
+    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),

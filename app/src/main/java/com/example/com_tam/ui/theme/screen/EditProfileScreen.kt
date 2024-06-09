@@ -108,7 +108,7 @@ fun EditProfileScreen(navController: NavController){
 				horizontalArrangement = Arrangement.Center
 			) {
 				Text(text = "Lưu", color = Color.White, fontSize = 18.sp,
-					modifier = Modifier.clickable { navController.navigate(route = Screen.ProfileScreen.route) })
+					modifier = Modifier.clickable { navController.popBackStack() })
 			}
 		}
 	}
