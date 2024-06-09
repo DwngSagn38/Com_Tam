@@ -153,7 +153,7 @@ fun LoginScreen(naviController: NavController) {
 							Toast.makeText(context, "Login SuccessFully", Toast.LENGTH_SHORT).show()
 							naviController.navigate(Screen.FurnitureApp.route){
 								// Xóa tất cả các trạng thái lưu màn hình trước đó
-								popUpTo(Screen.FurnitureApp.route) {
+								popUpTo(Screen.LoginScreen.route) {
 									inclusive = true
 								}
 							}

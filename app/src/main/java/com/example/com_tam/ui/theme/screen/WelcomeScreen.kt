@@ -34,7 +34,11 @@ fun WelcomeScreen(navController: NavController){
 		delay(3000)
 
 		// Chuyển đến màn hình Login
-		navController.navigate(Screen.LoginScreen.route)
+		navController.navigate(Screen.LoginScreen.route){
+			popUpTo(Screen.WelcomeScreen.route) {
+				inclusive = true
+			}
+		}
 	}
 	Column(
 		horizontalAlignment = Alignment.CenterHorizontally,
