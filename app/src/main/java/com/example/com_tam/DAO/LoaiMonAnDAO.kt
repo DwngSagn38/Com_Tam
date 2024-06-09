@@ -6,12 +6,13 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.com_tam.model.LoaiMonAnModel
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LoaiMonAnDAO{
     // get list danh sach Loai Mon An
     @Query("SELECT * FROM LoaiMon")
-    fun getListLoaiMon() : List<LoaiMonAnModel>
+    fun getListLoaiMon() : Flow<List<LoaiMonAnModel>>
 
     // lay 1 Loai Mon An theo id
     @Query("SELECT * FROM LoaiMon WHERE id = :id LIMIT 1")
@@ -19,13 +20,13 @@ interface LoaiMonAnDAO{
 
     // them Loai mon an
     @Insert
-    fun addLoaiMon(vararg loaiMon : LoaiMonAnModel)
+    suspend fun addLoaiMon( loaiMon : LoaiMonAnModel)
 
     // xoa loai mon an
     @Delete
-    fun deleteLoaiMon(loaiMon: LoaiMonAnModel)
+    suspend fun deleteLoaiMon(loaiMon: LoaiMonAnModel)
 
     // sửa loại mon an
     @Update
-    fun updateLoaiMon(loaiMon: LoaiMonAnModel)
+    suspend fun updateLoaiMon(loaiMon: LoaiMonAnModel)
 }

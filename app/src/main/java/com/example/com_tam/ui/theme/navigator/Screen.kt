@@ -15,4 +15,6 @@ enum class Screen(val route : String) {
     FurnitureApp("FurnitureApp"),
     QuanLyMonAn("QuanLyMonAn"),
     QuanLyLoaiMonAn("QuanLyLoaiMonAn"),
+    SuaLoaiMonAn("SuaLoaiMonAn"),
+    XoaLoaiMonAn("XoaLoaiMonAn")
 }
