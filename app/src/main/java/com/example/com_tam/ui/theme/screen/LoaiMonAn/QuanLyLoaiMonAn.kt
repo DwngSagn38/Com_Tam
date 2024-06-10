@@ -1,5 +1,7 @@
 package com.example.com_tam.ui.theme.screen.LoaiMonAn
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -38,19 +40,17 @@ import com.example.com_tam.R
 import com.example.com_tam.database.DBHelper
 import com.example.com_tam.model.LoaiMonAnModel
 import com.example.com_tam.repository.RepositoryLoaiMon
+import com.example.com_tam.ui.theme.component.HeaderQL
 import com.example.com_tam.ui.theme.navigator.Screen
 import com.example.com_tam.viewmodel.LoaiMonAnViewModel
 
 @Composable
-fun QuanLyLoaiMonAn(navController: NavController) {
+fun QuanLyLoaiMonAn(navController: NavController, myViewModel: LoaiMonAnViewModel) {
     val context = LocalContext.current
-    val db = DBHelper.getInstance(context)
-    val repository = RepositoryLoaiMon(db)
-    val myViewModel = LoaiMonAnViewModel(repository)
     var itShowDiaLog by remember { mutableStateOf(false) }
 
     if (itShowDiaLog) {
-        getDialog(viewModel = myViewModel, onConfirmation = {itShowDiaLog = false})
+        getDialog(viewModel = myViewModel, onConfirmation = {itShowDiaLog = false},context)
     }
 
 
@@ -62,6 +62,7 @@ fun QuanLyLoaiMonAn(navController: NavController) {
             .fillMaxSize()
             .background(Color(0xFF252121)),
     ) {
+
         Column(
             modifier = Modifier.fillMaxSize(),
         ) {
@@ -109,9 +110,9 @@ fun QuanLyLoaiMonAn(navController: NavController) {
                     .fillMaxWidth()
                     .height(70.dp)
                     .clickable {
-                    navController.navigate(
-                        route = Screen.SuaLoaiMonAn.route
-                    )
+                        navController.navigate(
+                            route = Screen.SuaLoaiMonAn.route
+                        )
                     },
                 contentAlignment = Alignment.TopStart
             ) {
@@ -176,7 +177,7 @@ fun QuanLyLoaiMonAn(navController: NavController) {
 }
 
 @Composable
-fun getDialog(viewModel: LoaiMonAnViewModel,onConfirmation: () -> Unit) {
+fun getDialog(viewModel: LoaiMonAnViewModel,onConfirmation: () -> Unit, context: Context) {
     var inputTenLoaiMonAn by remember { mutableStateOf("") }
 
     val emty by remember { mutableStateOf("") }
@@ -202,6 +203,7 @@ fun getDialog(viewModel: LoaiMonAnViewModel,onConfirmation: () -> Unit) {
                         )
                         onConfirmation()
                         inputTenLoaiMonAn = emty
+                        Toast.makeText(context,"Them thanh cong", Toast.LENGTH_SHORT).show()
                     }) {
                         Text(text = "Save")
                     }

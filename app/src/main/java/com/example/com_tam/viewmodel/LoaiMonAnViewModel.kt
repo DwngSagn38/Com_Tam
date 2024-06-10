@@ -13,7 +13,7 @@ class LoaiMonAnViewModel (val repository: RepositoryLoaiMon):ViewModel(){
         }
     }
 
-    val loaiMonAn = repository.getAll()
+    val loaiMonAns = repository.getAll()
 
     fun deleteLoaiMonAn(loaiMonAn: LoaiMonAnModel) {
         viewModelScope.launch {

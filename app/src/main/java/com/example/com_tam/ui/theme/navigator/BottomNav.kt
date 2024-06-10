@@ -61,6 +61,7 @@ import com.example.com_tam.ui.theme.screen.HoTro
 import com.example.com_tam.ui.theme.screen.QuanLy
 import com.example.com_tam.ui.theme.screen.StatisticsScreen
 import com.example.com_tam.ui.theme.screen.XacNhanDonHang
+import com.example.com_tam.viewmodel.LoaiMonAnViewModel
 
 
 // Bottom menu
@@ -74,7 +75,7 @@ import com.example.com_tam.ui.theme.screen.XacNhanDonHang
 //}
 
 @Composable
-fun FurnitureApp(navHostController: NavController, db : DBHelper) {
+fun FurnitureApp(navHostController: NavController, loaiMonAnViewModel: LoaiMonAnViewModel) {
     val navController = rememberNavController()
     val items = listOf(
         BottomNavigationItem(
@@ -131,7 +132,7 @@ fun FurnitureApp(navHostController: NavController, db : DBHelper) {
                 navController = navController,
                 innerPadding = innerPadding,
                 navHostController,
-                db
+                loaiMonAnViewModel
             )
         }
     }
@@ -184,7 +185,7 @@ fun TopAppBar(navController: NavHostController, navHostController: NavController
 
         },
         actions = {
-            if (currentRoute == "Home") {
+            if (currentRoute == "Trang chủ") {
                 IconButton(onClick = {}) {
                     Image(
                         painter = painterResource(id = R.drawable.notification),
@@ -207,7 +208,8 @@ fun TopAppBar(navController: NavHostController, navHostController: NavController
                 painter = painterResource(id = R.drawable.logo2),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(50.dp)
+                    .padding(start = 6.dp)
+                    .size(60.dp,52.dp)
                     .clickable {
                         navHostController.navigate(Screen.ProfileScreen.route)
                     }
@@ -275,7 +277,8 @@ data class BottomNavigationItem(
 )
 
 @Composable
-fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValues, navHostController: NavController, db : DBHelper) {
+fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValues, navHostController: NavController,
+                    loaiMonAnViewModel: LoaiMonAnViewModel) {
     NavHost(
         navController,
         startDestination = "Trang chủ",
@@ -283,7 +286,7 @@ fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValue
     ) {
         composable("Trang chủ") { HomeScreen() }
         composable("Lịch sử") { HistoryScreen() }
-        composable("Quản lý") { QuanLy(navHostController, db) }
+        composable("Quản lý") { QuanLy(navHostController,loaiMonAnViewModel) }
         composable("Hỗ trợ") { HoTro() }
     }
 }

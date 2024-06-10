@@ -1,7 +1,6 @@
 package com.example.com_tam.ui.theme.screen.MonAn
 
 import android.content.Context
-import android.content.pm.LauncherApps
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -13,15 +12,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -29,7 +25,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -39,7 +34,6 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -49,46 +43,44 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
-import com.example.com_tam.R
+import com.example.com_tam.model.MonAnModel
 import com.example.com_tam.ui.theme.component.HeaderQL
-import com.example.com_tam.ui.theme.navigator.Screen
-import com.example.com_tam.viewmodel.LoaiMonAnViewModel
 import com.example.com_tam.viewmodel.MonAnViewModel
-import okhttp3.internal.http2.Header
+import com.example.com_tam.viewmodel.isFloat
 
 @Composable
-fun AddMonAn(navController: NavController, viewModel: MonAnViewModel, loaiMonAnViewModel: LoaiMonAnViewModel){
-
+fun SuaMonAn(
+    navController: NavController,
+    viewModel: MonAnViewModel,
+    idMonAn : String?,
+    tenMon : String,
+    giaBan : String,
+    hinhAnh : String,
+    idLoaiMon : String
+){
     val context = LocalContext.current
-    val loaiMons by loaiMonAnViewModel.loaiMonAns.collectAsState(initial = emptyList())
-    var selectLoaiMon by remember {
-        mutableStateOf("")
+
+    var idLoaiMon by remember {
+        mutableStateOf(idLoaiMon)
     }
-    var inputGia by remember {
-        mutableStateOf("")
+    var giaBan by remember {
+        mutableStateOf(giaBan)
     }
-    var inputTenMon by remember {
-        mutableStateOf("")
+    var tenMon by remember {
+        mutableStateOf(tenMon)
     }
     var onMsg by remember {
         mutableStateOf("")
     }
 
-    // chon loai mon
-    var isDropdownMenuOpen by remember { mutableStateOf(false) }
-    var selectedItem by remember { mutableStateOf("") }
-
     // chon anh
-    val selectedImageUri = remember { mutableStateOf<Uri?>(null) }
+    val selectedImageUri = remember { mutableStateOf<Uri?>(Uri.parse(hinhAnh)) }
     val imagePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent(),
     ) { uri: Uri? ->
@@ -126,9 +118,9 @@ fun AddMonAn(navController: NavController, viewModel: MonAnViewModel, loaiMonAnV
                         },
                     contentScale = ContentScale.Crop
                 )
-            } ?: run{
+            }?: run{
                 Column(
-                        verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.Center
                     ,
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
@@ -152,26 +144,14 @@ fun AddMonAn(navController: NavController, viewModel: MonAnViewModel, loaiMonAnV
         ) {
             Spacer(modifier = Modifier.height(10.dp))
 
-            Text(text = "Loại mon", color = Color.White)
+            Text(text = "Ten mon an", color = Color.White)
             Spacer(modifier = Modifier.height(10.dp))
-
             TextField(
-                value = selectLoaiMon,
-                onValueChange = {},
-                readOnly = true, // Vô hiệu hóa tính năng chỉnh sửa
-                trailingIcon = {
-                    Icon(Icons.Default.KeyboardArrowDown,
-                        contentDescription = "",
-                        Modifier
-                            .clickable {
-                                isDropdownMenuOpen = true
-                            }
-                            .size(25.dp))
-                },
+                value = ""+tenMon,
+                onValueChange = { tenMon = it },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(12.dp))
-                ,
+                    .clip(RoundedCornerShape(12.dp)),
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color("#E0E0E0".toColorInt()),
                     unfocusedContainerColor = Color.White,
@@ -179,35 +159,14 @@ fun AddMonAn(navController: NavController, viewModel: MonAnViewModel, loaiMonAnV
                     unfocusedIndicatorColor = Color.Gray,
                 )
             )
-
-            DropdownMenu(
-                expanded = isDropdownMenuOpen,
-                onDismissRequest = { isDropdownMenuOpen = false },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp)
-            ) {
-                loaiMons.forEach { loaiMon ->
-                    DropdownMenuItem(
-                        text = {
-                            Text(text = loaiMon.tenLoaiMon.toString())
-                        },
-                        onClick = {
-                        selectedItem = loaiMon.id.toString()
-                        selectLoaiMon = loaiMon.tenLoaiMon.toString() // Lấy name của LoaiMon
-                        isDropdownMenuOpen = false
-                    })
-                }
-            }
-
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(text = "Gia", color = Color.White)
             Spacer(modifier = Modifier.height(10.dp))
 
             TextField(
-                value = inputGia,
-                onValueChange = { inputGia = it },
+                value = ""+ giaBan,
+                onValueChange = { giaBan = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(12.dp)),
@@ -220,23 +179,7 @@ fun AddMonAn(navController: NavController, viewModel: MonAnViewModel, loaiMonAnV
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
 
-            Text(text = "Ten mon an", color = Color.White)
-            Spacer(modifier = Modifier.height(10.dp))
-            TextField(
-                value = inputTenMon,
-                onValueChange = { inputTenMon = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(12.dp)),
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color("#E0E0E0".toColorInt()),
-                    unfocusedContainerColor = Color.White,
-                    disabledContainerColor = Color.Gray,
-                    unfocusedIndicatorColor = Color.Gray,
-                )
-            )
 
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -244,32 +187,23 @@ fun AddMonAn(navController: NavController, viewModel: MonAnViewModel, loaiMonAnV
                 modifier = Modifier.fillMaxSize()
             ) {
                 Button(onClick = {
-                    onMsg = viewModel.addMonAn(inputTenMon, inputGia,selectedItem,selectedImageUri.value.toString())
-                    Toast.makeText(context,onMsg,Toast.LENGTH_SHORT).show()
-                    if(onMsg.equals("Them thanh cong")){
-                        inputGia = ""
-                        inputTenMon = ""
-                        selectLoaiMon = ""
-                        selectedImageUri.value = null
+                    if (!isFloat(giaBan)){
+                        Toast.makeText(context,"Gia ban chua dung", Toast.LENGTH_SHORT).show()
+                    }else{
+                        val newMonAn = MonAnModel(idMonAn!!.toInt(),tenMon,giaBan.toFloat(), hinhAnh, idLoaiMon.toInt() )
+                        viewModel.updateMonAn(newMonAn)
+                        navController.popBackStack()
+                        viewModel.listMonAn
+                        Toast.makeText(context,"Sua thanh cong", Toast.LENGTH_SHORT).show()
                     }
                 },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFFFB703)
                     ),
                     modifier = Modifier.size(160.dp,40.dp)) {
-                    Text(text = "Them", color = Color.White, fontWeight = FontWeight.Bold)
+                    Text(text = "Luu", color = Color.White, fontWeight = FontWeight.Bold)
                 }
             }
         }
     }
-
-
-
 }
-
-
-// Mở màn hình thư viện hình ảnh khi nhấp vào "Thêm hình ảnh"
-fun openImagePicker(context: Context, imagePickerLauncher : ActivityResultLauncher<String>) {
-    imagePickerLauncher.launch("image/*")
-}
-

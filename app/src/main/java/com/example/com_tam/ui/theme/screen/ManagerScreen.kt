@@ -32,13 +32,14 @@ import com.example.com_tam.R
 import com.example.com_tam.database.DBHelper
 import com.example.com_tam.ui.theme.screen.LoaiMonAn.QuanLyLoaiMonAn
 import com.example.com_tam.ui.theme.screen.MonAn.QuanLyMonAn
+import com.example.com_tam.viewmodel.LoaiMonAnViewModel
 
 @Composable
-fun QuanLy(navController: NavController, db : DBHelper) {
+fun QuanLy(navController: NavController , viewModel: LoaiMonAnViewModel) {
     var isQLLMA by remember{ mutableStateOf(false) }
     var isQLMA by remember{ mutableStateOf(false) }
-    if (isQLMA) QuanLyMonAn(navController,db)
-    else if (isQLLMA) QuanLyLoaiMonAn(navController)
+    if (isQLMA) QuanLyMonAn(navController)
+    else if (isQLLMA) QuanLyLoaiMonAn(navController, viewModel)
     else Box(
         modifier = Modifier
             .fillMaxSize()

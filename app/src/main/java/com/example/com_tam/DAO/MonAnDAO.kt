@@ -6,13 +6,14 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.com_tam.model.MonAnModel
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
 interface MonAnDAO{
     // get list danh sach Mon An
     @Query("SELECT * FROM MonAn")
-    fun getListMonAn() : List<MonAnModel>
+    fun getListMonAn() : Flow<List<MonAnModel>>
 
     // lay 1 Mon An theo id
     @Query("SELECT * FROM MonAn WHERE id = :id LIMIT 1")
