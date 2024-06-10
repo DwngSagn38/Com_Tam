@@ -190,7 +190,7 @@ fun SuaMonAn(
                     if (!isFloat(giaBan)){
                         Toast.makeText(context,"Gia ban chua dung", Toast.LENGTH_SHORT).show()
                     }else{
-                        val newMonAn = MonAnModel(idMonAn!!.toInt(),tenMon,giaBan.toFloat(), hinhAnh, idLoaiMon.toInt() )
+                        val newMonAn = MonAnModel(idMonAn!!.toInt(),tenMon,giaBan.toFloat(), selectedImageUri.value.toString(), idLoaiMon.toInt() )
                         viewModel.updateMonAn(newMonAn)
                         navController.popBackStack()
                         viewModel.listMonAn

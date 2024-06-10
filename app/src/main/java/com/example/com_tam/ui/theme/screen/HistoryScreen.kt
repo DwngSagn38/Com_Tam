@@ -1,6 +1,7 @@
 package com.example.com_tam.ui.theme.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,15 +18,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.com_tam.ui.theme.navigator.Screen
 
-@Preview(showBackground = true)
 @Composable
-fun HistoryScreen() {
-    OrderListScreen()
+fun HistoryScreen(navController: NavController) {
+    OrderListScreen(navController)
 }
 
 @Composable
-fun OrderListScreen() {
+fun OrderListScreen(navController: NavController) {
     val orders = listOf(
         Order1(true, "10/03/2023", "9:20", 98.0, 3),
         Order1(false, "10/03/2023", "9:20", 98.0, 3),
@@ -49,7 +51,7 @@ fun OrderListScreen() {
 
         ) {
             items(orders) { order ->
-                OrderItem(order)
+                OrderItem(order, navController)
                 Spacer(modifier = Modifier.height(8.dp))
             }
         }
@@ -57,7 +59,7 @@ fun OrderListScreen() {
 }
 
 @Composable
-fun OrderItem(order: Order1) {
+fun OrderItem(order: Order1, navController: NavController) {
     Button(
         onClick = { /*TODO*/ },
         colors = ButtonDefaults.buttonColors(
@@ -65,6 +67,9 @@ fun OrderItem(order: Order1) {
         ),
         modifier = Modifier
             .fillMaxSize()
+            .clickable {
+                       navController.navigate(Screen.XacNhanDHScreen.route)
+            }
         ,
         shape = RoundedCornerShape(8.dp)
 

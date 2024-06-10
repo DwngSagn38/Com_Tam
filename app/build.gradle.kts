@@ -88,4 +88,7 @@ dependencies {
 
     // chon anh
     implementation("androidx.activity:activity-compose:1.4.0-beta01")
+
+    // load anh uri
+    implementation("io.coil-kt:coil:2.6.0")
 }

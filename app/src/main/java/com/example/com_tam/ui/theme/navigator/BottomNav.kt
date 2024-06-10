@@ -285,7 +285,7 @@ fun NavigationGraph(navController: NavHostController, innerPadding: PaddingValue
         modifier = Modifier.padding(innerPadding)
     ) {
         composable("Trang chủ") { HomeScreen() }
-        composable("Lịch sử") { HistoryScreen() }
+        composable("Lịch sử") { HistoryScreen(navHostController) }
         composable("Quản lý") { QuanLy(navHostController,loaiMonAnViewModel) }
         composable("Hỗ trợ") { HoTro() }
     }

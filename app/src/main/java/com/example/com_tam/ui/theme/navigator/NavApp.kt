@@ -60,7 +60,7 @@ fun NavApp() {
         composable(Screen.XacNhanDHScreen.route) { XacNhanDonHang() }
         composable(Screen.ManagerScreen.route) { QuanLy(navController, LoaiMonViewModel) }
         composable(Screen.HomeScreen.route) { HomeScreen() }
-        composable(Screen.HistoryScreen.route) { HistoryScreen() }
+        composable(Screen.HistoryScreen.route) { HistoryScreen(navController) }
         composable(Screen.ProfileScreen.route) { ProfileScreen(navController) }
         composable(Screen.EditProfileScreen.route) { EditProfileScreen(navController) }
         composable(Screen.StatisticScreen.route) { StatisticsScreen() }

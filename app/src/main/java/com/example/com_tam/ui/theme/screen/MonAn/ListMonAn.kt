@@ -2,6 +2,7 @@ package com.example.com_tam.ui.theme.screen.MonAn
 
 import android.content.Context
 import android.net.Uri
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -45,6 +46,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import coil.load
+import coil.target.ImageViewTarget
 import com.example.com_tam.R
 import com.example.com_tam.model.LoaiMonAnModel
 import com.example.com_tam.model.MonAnModel
@@ -104,8 +107,6 @@ fun DanhSachMonAn(
             items(monAns) {
                 Card(
                     onClick = {
-
-//                    navController.navigate("${ROUTE_NAME_SCREEN.Detail.name}/${ Uri.encode((it.uid.toString()))}/${Uri.encode(it.hoten)}/${Uri.encode(it.mssv)}/${Uri.encode(it.diemTB.toString())}/${Uri.encode(it.daratruong.toString())}")
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -139,6 +140,7 @@ fun DanhSachMonAn(
                                     .size(50.dp)
                                     .clip(RoundedCornerShape(5.dp)),
                                 contentScale = ContentScale.Crop)
+
 
                             Spacer(modifier = Modifier.width(12.dp))
 
@@ -234,3 +236,5 @@ fun DialogConfirm(
             Text(text = "Ban co muon xoa khong?")
         })
 }
+
+
