@@ -13,10 +13,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,6 +36,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,13 +56,15 @@ fun LoginScreen(naviController: NavController, repositoryUser: RepositoryUser) {
 	val context = LocalContext.current
 	var email by remember { mutableStateOf("") }
 	var password by remember { mutableStateOf("") }
+	var visible by remember { mutableStateOf(true) }
 	var errorMessage by remember { mutableStateOf<String?>(null) }
 
 	Column(
 		modifier = Modifier
 			.fillMaxSize()
 			.background(color = Color.Black),
-		verticalArrangement = Arrangement.Center
+		verticalArrangement = Arrangement.Center,
+		horizontalAlignment = Alignment.CenterHorizontally
 	) {
 		Column(
 			modifier = Modifier
@@ -75,7 +83,7 @@ fun LoginScreen(naviController: NavController, repositoryUser: RepositoryUser) {
 
 			Image(
 				painter = painterResource(id = R.drawable.logosplash), contentDescription = "",
-				modifier = Modifier.fillMaxSize(0.8f)
+				modifier = Modifier.fillMaxSize(0.7f)
 			)
 
 			Text(
@@ -87,59 +95,112 @@ fun LoginScreen(naviController: NavController, repositoryUser: RepositoryUser) {
 		}
 		Column(
 			modifier = Modifier
-				.fillMaxHeight(0.7f)
+				.fillMaxHeight(0.5f)
 				.padding(horizontal = 16.dp),
-			verticalArrangement = Arrangement.SpaceEvenly,
-			horizontalAlignment = Alignment.CenterHorizontally
+			horizontalAlignment = Alignment.Start
 		) {
-			InputField(label = "Email", value = email, onValueChange = { email = it })
-			InputField(label = "Password", value = password, onValueChange = { password = it })
+			Spacer(modifier = Modifier.height(20.dp))
+			Text(
+				text = "Email",
+				color = Color.White,
+				fontSize = 14.sp,
+				fontWeight = FontWeight(400)
+			)
+			Spacer(modifier = Modifier.height(10.dp))
+
+			TextField(
+				value = email,
+				onValueChange = {email = it},
+				modifier = Modifier
+					.fillMaxWidth()
+					.clip(RoundedCornerShape(12.dp)),
+				colors = TextFieldDefaults.colors(
+					focusedContainerColor = Color("#E0E0E0".toColorInt()),
+					unfocusedContainerColor = Color.White,
+					disabledContainerColor = Color.Gray,
+					unfocusedIndicatorColor = Color.Gray,
+				)
+			)
+			Spacer(modifier = Modifier.height(20.dp))
+
+			Text(
+				text = "PassWord",
+				color = Color.White,
+				fontSize = 14.sp,
+				fontWeight = FontWeight(400)
+			)
+			Spacer(modifier = Modifier.height(10.dp))
+
+			TextField(
+				value = password,
+				onValueChange = {password = it},
+				trailingIcon = {
+					Icon(painter = painterResource( id =
+					if(visible) R.drawable.ic_eye else R.drawable.hidden)
+						, contentDescription = "visible",
+						Modifier
+							.clickable { visible = !visible }
+							.size(25.dp))
+				},
+				modifier = Modifier
+					.fillMaxWidth()
+					.clip(RoundedCornerShape(12.dp)),
+				visualTransformation =
+				if (visible) PasswordVisualTransformation()
+				else VisualTransformation.None,
+				colors = TextFieldDefaults.colors(
+					focusedContainerColor = Color("#E0E0E0".toColorInt()),
+					unfocusedContainerColor = Color.White,
+					disabledContainerColor = Color.Gray,
+					unfocusedIndicatorColor = Color.Gray,
+				)
+			)
 
 			errorMessage?.let {
 				Text(text = it, color = Color.Red, fontSize = 14.sp)
 			}
-
-			Row(
-				modifier = Modifier
-					.clip(RoundedCornerShape(30.dp))
-					.width(150.dp)
-					.height(50.dp)
-					.background(color = Color("#FE724C".toColorInt())),
-				verticalAlignment = Alignment.CenterVertically,
-				horizontalArrangement = Arrangement.Center
-			) {
-				Text(text = "Xác nhận", color = Color.White, fontSize = 18.sp,
-					modifier = Modifier.clickable {
-						loginUser(email, password, repositoryUser, naviController,
-							onError = { error ->
-							errorMessage = error
-						},
-							onConfirm = {
-								Toast.makeText(context,"Đăng nhập thành công",Toast.LENGTH_SHORT).show()
-							})
-					})
-			}
-
-			Text(text =
-			buildAnnotatedString {
-				append("Chưa có tài khoản? ")
-
-				withStyle(
-					SpanStyle(
-						color = Color.Red,
-						fontWeight = FontWeight(600)
-					)
-				) {
-					append("Đăng ký ngay!")
-				}
-			},
-				color = Color.White, fontSize = 16.sp,
-				modifier = Modifier.clickable {
-					naviController.navigate(Screen.Sign_inScreen.route)
-				})
-
 		}
 
+		Row(
+			modifier = Modifier
+				.clip(RoundedCornerShape(30.dp))
+				.size(220.dp,44.dp)
+				.background(color = Color("#FE724C".toColorInt())),
+			verticalAlignment = Alignment.CenterVertically,
+			horizontalArrangement = Arrangement.Center
+		) {
+			Text(text = "Xác nhận", color = Color.White, fontSize = 18.sp,
+				modifier = Modifier.clickable {
+					loginUser(email, password, repositoryUser, naviController,
+						onError = { error ->
+							errorMessage = error
+						},
+						onConfirm = {
+							Toast.makeText(context,"Đăng nhập thành công",Toast.LENGTH_SHORT).show()
+						})
+				})
+		}
+
+		Spacer(modifier = Modifier.height(20.dp))
+
+
+		Text(text =
+		buildAnnotatedString {
+			append("Chưa có tài khoản? ")
+
+			withStyle(
+				SpanStyle(
+					color = Color.Red,
+					fontWeight = FontWeight(600)
+				)
+			) {
+				append("Đăng ký ngay!")
+			}
+		},
+			color = Color.White, fontSize = 16.sp,
+			modifier = Modifier.clickable {
+				naviController.navigate(Screen.Sign_inScreen.route)
+			})
 	}
 
 }
