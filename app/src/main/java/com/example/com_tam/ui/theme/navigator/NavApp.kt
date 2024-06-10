@@ -61,24 +61,61 @@ fun NavApp() {
         composable(Screen.ManagerScreen.route) { QuanLy(navController, LoaiMonViewModel) }
         composable(Screen.HomeScreen.route) { HomeScreen() }
         composable(Screen.HistoryScreen.route) { HistoryScreen(navController) }
-        composable(Screen.ProfileScreen.route) { ProfileScreen(navController) }
-        composable(Screen.EditProfileScreen.route) { EditProfileScreen(navController) }
+
+        composable(Screen.ProfileScreen.route) {
+            ProfileScreen(navController, repositoryUser)
+        }
+
+        composable(Screen.EditProfileScreen.route) {
+            EditProfileScreen(
+                navController,
+                repositoryUser
+            )
+        }
         composable(Screen.StatisticScreen.route) { StatisticsScreen() }
-        composable(Screen.FurnitureApp.route) { FurnitureApp(navController,LoaiMonViewModel) }
+        composable(Screen.FurnitureApp.route) { FurnitureApp(navController, LoaiMonViewModel) }
         composable(Screen.QuanLyMonAn.route) { QuanLyMonAn(navController) }
-        composable(Screen.QuanLyLoaiMonAn.route) { QuanLyLoaiMonAn(navController, myViewModel = LoaiMonViewModel) }
-        composable(Screen.AddMonAn.route) { AddMonAn(navController, viewModel =  monAnViewModel, loaiMonAnViewModel = LoaiMonViewModel) }
-        composable(Screen.ListMonAn.route) { DanhSachMonAn( viewModel =  monAnViewModel, navController) }
+        composable(Screen.QuanLyLoaiMonAn.route) {
+            QuanLyLoaiMonAn(
+                navController,
+                myViewModel = LoaiMonViewModel
+            )
+        }
+        composable(Screen.AddMonAn.route) {
+            AddMonAn(
+                navController,
+                viewModel = monAnViewModel,
+                loaiMonAnViewModel = LoaiMonViewModel
+            )
+        }
+        composable(Screen.ListMonAn.route) {
+            DanhSachMonAn(
+                viewModel = monAnViewModel,
+                navController
+            )
+        }
         composable("${Screen.SuaMonAn.route}/{id}/{tenMon}/{giaBan}/{hinhAnh}/{idLoaiMon}") {
             SuaMonAn(
                 navController,
-                viewModel =  monAnViewModel,
+                viewModel = monAnViewModel,
                 idMonAn = it.arguments?.getString("id"),
                 tenMon = it.arguments?.getString("tenMon")!!,
                 giaBan = it.arguments?.getString("giaBan")!!,
                 idLoaiMon = it.arguments?.getString("idLoaiMon")!!,
-                hinhAnh = it.arguments?.getString("hinhAnh")!!) }
-        composable(Screen.SuaLoaiMonAn.route) { SuaLoaiMonAn(viewModel = LoaiMonViewModel,navController) }
-        composable(Screen.XoaLoaiMonAn.route) { XoaLoaiMonAn(viewModel = LoaiMonViewModel,navController) }
+                hinhAnh = it.arguments?.getString("hinhAnh")!!
+            )
+        }
+        composable(Screen.SuaLoaiMonAn.route) {
+            SuaLoaiMonAn(
+                viewModel = LoaiMonViewModel,
+                navController
+            )
+        }
+        composable(Screen.XoaLoaiMonAn.route) {
+            XoaLoaiMonAn(
+                viewModel = LoaiMonViewModel,
+                navController
+            )
+        }
     }
 }

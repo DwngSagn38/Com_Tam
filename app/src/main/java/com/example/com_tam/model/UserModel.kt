@@ -11,5 +11,8 @@ data class UserModel (
     @ColumnInfo(name = "password") var password: String?,
     @ColumnInfo(name = "hoTen") var hoTen: String?,
     @ColumnInfo(name = "soDienThoai") var soDienThoai: String?,
-    @ColumnInfo(name = "role") var role: Int?
+    @ColumnInfo(name = "role") var role: Int?,
+    @ColumnInfo(name = "phuong") var phuong: String?,
+    @ColumnInfo(name = "duong") var duong: String?,
+    @ColumnInfo(name = "sonha") var sonha: String?
 )

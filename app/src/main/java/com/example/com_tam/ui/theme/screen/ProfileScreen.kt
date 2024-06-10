@@ -1,26 +1,19 @@
 package com.example.com_tam.ui.theme.screen
 
-import android.content.Context
-import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,97 +22,152 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
 import com.example.com_tam.R
+import com.example.com_tam.model.UserModel
+import com.example.com_tam.repository.RepositoryUser
 import com.example.com_tam.ui.theme.navigator.Screen
 
 @Composable
-fun ProfileScreen(navController: NavController) {
-    var isShowdialog by remember {
-        mutableStateOf(false)
-    }
-    if (isShowdialog) ShowDialog(onConfirmation = { isShowdialog = false }, navController)
-Column(
-    modifier = Modifier
-        .fillMaxSize()
-        .background(Color.Black),
-    horizontalAlignment =  Alignment.CenterHorizontally,
+fun TextFiel(
+    label: String,
+    value: String
 ) {
-    Text(text = "Hồ sơ",
-        fontWeight = FontWeight(800),
-        fontSize = 24.sp,
-        color = Color.White,
-        modifier = Modifier.padding(top = 70.dp)
-    )
-    
-    Row(
+    Column(
         modifier = Modifier
-            .fillMaxWidth(0.9f)
-            .padding(top = 15.dp)
-            .height(80.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+            .fillMaxWidth()
     ) {
-        Text(text = "Edit",
-        fontSize = 15.sp,
-            color = Color.White,
-            modifier = Modifier.clickable {
-                navController.navigate(
-                    route = Screen.EditProfileScreen.route)
-            }
-            )
-        
-        Spacer(modifier = Modifier.height(20.dp))
-        
-        Text(text = "Signout",
-            fontSize = 15.sp,
-            color = Color.White,
-            modifier = Modifier.clickable {
-                isShowdialog = true
-            })
+        Text(text = label, fontSize = 16.sp, color = Color.White)
+        Spacer(modifier = Modifier.height(5.dp))
+        Text(
+            text = value,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(shape = RoundedCornerShape(10.dp))
+                .background(Color("#D9D9D9".toColorInt()))
+                .height(50.dp)
+                .align(Alignment.CenterHorizontally)
+                .padding(start = 10.dp)
+        )
     }
-    
-    Spacer(modifier = Modifier.height(30.dp))
+}
+
+@Composable
+fun ProfileScreen(navController: NavController,repositoryUser: RepositoryUser) {
+    var isShowdialog by remember { mutableStateOf(false) }
+    if (isShowdialog) ShowDialog(onConfirmation = { isShowdialog = false }, navController)
+
+    var user by remember { mutableStateOf<UserModel?>(null) }
+
+    LaunchedEffect(Unit) {
+        user = repositoryUser.getUserById(userId)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .clip(shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
-            .background(color = Color("#252121".toColorInt())),
+            .background(Color.Black),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Column(
+        Text(
+            text = "Hồ sơ",
+            fontWeight = FontWeight(800),
+            fontSize = 24.sp,
+            color = Color.White,
+            modifier = Modifier.padding(top = 70.dp)
+        )
+
+        Row(
             modifier = Modifier
-                .padding(0.dp, 70.dp, 0.dp, 0.dp)
+                .fillMaxWidth(0.9f)
+                .padding(top = 15.dp)
+                .height(80.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "Van Anh",
+            Text(text = "Edit",
+                fontSize = 15.sp,
                 color = Color.White,
+                modifier = Modifier.clickable {
+                    navController.navigate(Screen.EditProfileScreen.route)
+                }
             )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(text = "Signout",
+                fontSize = 15.sp,
+                color = Color.White,
+                modifier = Modifier.clickable {
+                    isShowdialog = true
+                })
         }
+
         Spacer(modifier = Modifier.height(30.dp))
         Column(
             modifier = Modifier
-                .fillMaxHeight(0.8f)
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.SpaceEvenly,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxSize()
+                .clip(shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+                .background(color = Color("#252121".toColorInt())),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            InputField(label = "Số điện thoại", value = "", onValueChange = {})
-            InputField(label = "Phường", value = "", onValueChange = {})
-            InputField(label = "Đường", value = "", onValueChange = {})
-            InputField(label = "Số nhà", value = "", onValueChange = {})
+            Column(
+                modifier = Modifier
+                    .padding(0.dp, 70.dp, 0.dp, 0.dp)
+            ) {
+                val hoTentext = if (user?.hoTen.isNullOrEmpty()) {
+                    "Chưa có thông tin"
+                } else {
+                    user?.hoTen ?: ""
+                }
+                Text(
+                    text = hoTentext,
+                    color = Color.White,
+                )
+            }
+            Spacer(modifier = Modifier.height(30.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight(0.8f)
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                val sdttext = if (user?.soDienThoai.isNullOrEmpty()) {
+                    "Chưa có thông tin"
+                } else {
+                    user?.soDienThoai ?: ""
+                }
+                TextFiel(label = "Số điện thoại", value =sdttext)
+                val phuongText = if (user?.phuong.isNullOrEmpty()) {
+                    "Chưa có thông tin"
+                } else {
+                    user?.phuong ?: ""
+                }
+                TextFiel(label = "Phường", value = phuongText)
+                val duongtext = if (user?.duong.isNullOrEmpty()) {
+                    "Chưa có thông tin"
+                } else {
+                    user?.duong ?: ""
+                }
+                TextFiel(label = "Đường", value = duongtext)
+                val sonhatext = if (user?.sonha.isNullOrEmpty()) {
+                    "Chưa có thông tin"
+                } else {
+                    user?.sonha ?: ""
+                }
+                TextFiel(label = "Số nhà", value = sonhatext)
+            }
         }
     }
-}
+
     Box(
         contentAlignment = Alignment.TopCenter,
         modifier = Modifier
@@ -131,9 +179,11 @@ Column(
             modifier = Modifier
                 .size(130.dp)
                 .border(12.dp, Color.White, RoundedCornerShape(140.dp)),
-            contentScale = ContentScale.Inside)
+            contentScale = ContentScale.Inside
+        )
     }
 }
+
 
 @Composable
 fun ShowDialog(
@@ -157,16 +207,20 @@ fun ShowDialog(
                 modifier = Modifier.padding(16.dp),
                 horizontalAlignment = Alignment.Start,
             ) {
-                Text("Xác nhận", style =
-                MaterialTheme.typography.titleLarge)
+                Text(
+                    "Xác nhận", style =
+                    MaterialTheme.typography.titleLarge
+                )
                 Spacer(modifier = Modifier.height(20.dp))
-                Text("Bạn có muốn đăng xuất không?", style =
-                MaterialTheme.typography.bodyMedium)
+                Text(
+                    "Bạn có muốn đăng xuất không?", style =
+                    MaterialTheme.typography.bodyMedium
+                )
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Row(
                     Modifier.fillMaxWidth()
-                ){
+                ) {
                     Button(
                         onClick = onConfirmation,
                         modifier = Modifier
@@ -183,13 +237,12 @@ fun ShowDialog(
                     Button(
                         onClick = {
                             onConfirmation()
-                            navController.navigate(Screen.LoginScreen.route){
-                                popUpTo(Screen.FurnitureApp.route){
+                            navController.navigate(Screen.LoginScreen.route) {
+                                popUpTo(Screen.FurnitureApp.route) {
                                     inclusive = true
                                 }
                             }
-                                  }
-                        ,
+                        },
                         modifier = Modifier
                             .padding(10.dp)
                             .weight(1f),
@@ -205,3 +258,4 @@ fun ShowDialog(
         }
     }
 }
+
