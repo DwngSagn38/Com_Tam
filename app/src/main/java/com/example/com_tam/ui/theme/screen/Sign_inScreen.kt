@@ -106,7 +106,7 @@ fun Sign_inScreen(naviController: NavController, repositoryUser: RepositoryUser)
 			horizontalAlignment = Alignment.Start
 		) {
 			Text(
-				text = "Username",
+				text = "Họ và tên",
 				color = Color.White,
 				fontSize = 14.sp,
 				fontWeight = FontWeight(400)
@@ -258,29 +258,6 @@ fun Sign_inScreen(naviController: NavController, repositoryUser: RepositoryUser)
 
 }
 
-@Composable
-fun TextInput(
-	label: String,
-	value: String,
-	onValueChange: (String) -> Unit
-) {
-	Column(
-	) {
-		Text(text = label, fontSize = 16.sp, color = Color.White)
-		Spacer(modifier = Modifier.height(5.dp))
-		OutlinedTextField(
-			value = value,
-			onValueChange = onValueChange,
-			modifier = Modifier
-				.fillMaxWidth()
-				.clip(shape = RoundedCornerShape(10.dp))
-				.background(Color("#D9D9D9".toColorInt()))
-				.height(50.dp)
-
-		)
-	}
-}
-
 fun registerUser(name: String,
 				 sdt: String,
 				 email: String,
@@ -309,7 +286,10 @@ fun registerUser(name: String,
 		password = pass,
 		hoTen = name,
 		soDienThoai = sdt,
-		role = 1 // Role 1 là giá trị mặc định cho người dùng mới
+		role = 1,
+		phuong = "",
+		duong = "",
+		sonha = ""
 	)
 
 	CoroutineScope(Dispatchers.IO).launch {

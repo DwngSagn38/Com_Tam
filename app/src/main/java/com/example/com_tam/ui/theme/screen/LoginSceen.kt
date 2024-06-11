@@ -1,5 +1,6 @@
 package com.example.com_tam.ui.theme.screen
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -51,6 +52,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+var userId = 0
 @Composable
 fun LoginScreen(naviController: NavController, repositoryUser: RepositoryUser) {
 	val context = LocalContext.current
@@ -235,7 +237,8 @@ fun loginUser(email: String,
 			  onConfirm : () -> Unit) {
 	CoroutineScope(Dispatchers.IO).launch {
 		val user = repositoryUser.getUserByEmail(email)
-
+		userId = user?.id ?: 0
+		Log.d("loginUser", "loginUser: $userId")
 		if (email.isEmpty() || password.isEmpty()) {
 			withContext(Dispatchers.Main) {
 				onError("Vui lòng điền đầy đủ thông ")

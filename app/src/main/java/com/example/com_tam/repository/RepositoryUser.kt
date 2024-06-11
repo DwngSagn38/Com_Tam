@@ -16,6 +16,16 @@ class RepositoryUser(val userDB : DBHelper) {
         return userDB.userDAO().getUser(email)
     }
 
+
+    suspend fun getUserById(userId: Int): UserModel? {
+        return userDB.userDAO().getUserById(userId)
+    }
+
+    suspend fun updateUserById(updatedUser: UserModel) {
+        userDB.userDAO().updateUserById(updatedUser)
+    }
+
+
     suspend fun populateDatabase(userDAO: UserDAO) {
         // Thêm người dùng mặc định
         val user = UserModel(
@@ -23,7 +33,10 @@ class RepositoryUser(val userDB : DBHelper) {
             password = "123",
             hoTen = "Hoa Linh",
             soDienThoai = "0352349876",
-            role = 0
+            role = 0,
+            phuong = "Nam Tu Liem",
+            duong= " ngo 80, Xuan Phuong",
+            sonha = "14a"
         )
         userDAO.addUser(user)
     }
